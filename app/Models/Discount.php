@@ -30,5 +30,6 @@ class Discount extends Model
     }
 
 
+
     //
 }

@@ -23,26 +23,25 @@
                             <th>الاسم</th>
                             <th>التصنيف الأب</th>
                             <th>عدد المنتجات</th>
-                            <th>الحالة</th>
                             <th>إجراء</th>
                           </tr>
                         </thead>
                         <tbody>
                             @foreach ($categories as $category)
-
-
                           <tr>
                           <td>
-    @if($category->images->first())
-        <img src="{{ asset('storage/' . $category->images->first()->path) }}" alt="{{ $category->name }}" width="50">
-    @else
-        <span>لا توجد صورة</span>
-    @endif
+@php $image = $category->images->first(); @endphp
+
+@if($image)
+    <img src="{{ asset('storage/categories/' . $image->path) }}"
+     width="50">
+@else
+    <span>لا توجد صورة</span>
+@endif
 </td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->parent ? $category->parent->name : '-' }}</td>
                             <td>{{ $category->products->count() }}</td>
-                            <td><span class="badge badge-success">{{ $category->is_active ? 'مفعل' : 'غير مفعل' }}</span></td>
                             <td>
                               <div class="dropdown">
                                 <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,8 +85,7 @@
                   @csrf
                   <div class="form-group">
     <label for="categoryImage">صورة التصنيف</label>
-    <input type="file" name="images" class="form-control" multiple>
-    <small class="text-muted">يمكن رفع صورة واحدة أو أكثر.</small>
+    <input type="file" name="image" class="form-control" >
 </div>
                   <div class="form-group">
                     <label for="catName">اسم التصنيف</label>

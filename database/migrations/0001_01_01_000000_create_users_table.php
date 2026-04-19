@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-             $table->string('role')->default('user'); // Add a role column with a default value of 'user'
+             $table->string('role')->default('customer'); // Add a role column with a default value of 'customer'
             $table->rememberToken();
             $table->timestamps();
         });

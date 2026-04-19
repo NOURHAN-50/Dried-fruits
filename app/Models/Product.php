@@ -20,9 +20,9 @@ class Product extends Model
           'price',
            'sale_price',
             'category_id',
-             'stock',
+             'main_stock',
             'status',
-
+            'cost_price',
              ];
     public function category(){
         return $this->belongsTo(Category::class);
@@ -32,6 +32,8 @@ class Product extends Model
     {
         return $this->hasMany(Variation::class);
     }
+
+
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_product')->withPivot('quantity', 'price');
@@ -44,13 +46,28 @@ class Product extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
-    public function getImageUrlAttribute()
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+    public function averageRating()
 {
-    if ($this->images->first()) {
-        return asset('storage/'.$this->images->first()->path);
+    return $this->reviews()->avg('rating');
+}
+public function getFinalData($variationId = null)
+{
+    $variation = null;
+
+    if ($variationId) {
+        $variation = $this->variations->where('id', $variationId)->first();
     }
 
-    return asset('assets/products/p1.jpg');
+    return [
+        'price' => $variation->price ?? $this->price,
+        'stock' => $variation->stock ?? $this->stock,
+        'image' => $variation->image ?? optional($this->images->first())->path,
+        'variation_id' => $variation?->id,
+    ];
 }
-    //
+   //
 }

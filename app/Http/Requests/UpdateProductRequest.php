@@ -28,9 +28,9 @@ class UpdateProductRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'discount_price' => 'nullable|numeric|min:0|lt:price',
-            'stock' => 'required|integer|min:0',
             'status' => 'required|in:متاح,غير متاح',
-
+            'main_stock'=>'required|numeric|min:0',
+             'cost_price'=>'required|numeric|min:0'
             //
         ];
     }
@@ -38,7 +38,7 @@ class UpdateProductRequest extends FormRequest
     {
         return [
             'name.required' => 'Product name is required.',
-            'price.required' => 'Product price is required.',
+            'price.required' => 'main_stock',
             'price.numeric' => 'Product price must be a number.',
             'price.min' => 'Product price must be at least 0.',
             'category_id.required' => 'Product category is required.',
@@ -51,6 +51,7 @@ class UpdateProductRequest extends FormRequest
             'stock.min' => 'Product stock must be at least 0.',
             'status.required' => 'Product status is required.',
             'status.in' => 'Product status must be either "متاح" or "غير متاح".',
+            'cost_price'=>'السعر الأساسي مطلوب.'
 
         ];
     }

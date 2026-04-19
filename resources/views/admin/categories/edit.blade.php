@@ -19,9 +19,12 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-    <label for="categoryImage">صورة التصنيف</label>
-    <input type="file" name="images" class="form-control" multiple>
-    <small class="text-muted">يمكن رفع صورة واحدة أو أكثر.</small>
+    @if($category->images->first())
+        <img src="{{ $category->images->first()->url }}" alt="{{ $category->name }}" width="50">
+    @else
+        <span>لا توجد صورة</span>
+    @endif
+    <input type="file" name="image" class="form-control" >
 </div>
                         <div class="form-group">
                           <label for="catName">اسم التصنيف</label>

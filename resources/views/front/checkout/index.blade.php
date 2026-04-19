@@ -1,0 +1,146 @@
+    @extends('front.app')
+    @section('hero')
+    <main class="max-w-7xl mx-auto px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+    <!-- Left Column: Cart & Details -->
+    <div class="lg:col-span-7 space-y-12">
+        <form action="{{ route('checkout.placeOrder') }}" method="POST">
+        @csrf
+    <!-- Section 2: Shipping Information -->
+    <section class="space-y-6">
+    <h2 class="text-2xl font-bold text-on-surface tracking-tight">Shipping Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <div class="col-span-2">
+    <input name="customer_name" class="w-full bg-surface-container border-none p-4 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" placeholder="Full Name" type="text"/>
+    </div>
+    @error('customer_name')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+    <div class="col-span-2">
+    <input name="phone" type="text" required  class="w-full bg-surface-container border-none p-4 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" placeholder="phon number">
+    </div>
+    @error('phone')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+    <div class="col-span-2">
+    <input name="address" class="w-full bg-surface-container border-none p-4 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" placeholder="Street Address" type="text"/>
+    </div>
+    @error('address')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+    <div class="col-span-2">
+
+        <select  id="shipping_zone"  name="shipping_zone_id" class="w-full bg-surface-container border-none p-4 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" required>
+            <option value="">اختر المدينة</option>
+    @foreach($zones as $zone)
+            <option value="{{ $zone->id }}" data-price="{{ $zone->price }}">
+                {{ $zone->name }} - {{ $zone->price }} جنيه
+            </option>
+        @endforeach
+    </select>
+    </div>
+    @error('shipping_zone_id')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+
+
+    </div>
+    </section>
+    <!-- Section 3: Payment Options -->
+    <section class="space-y-6">
+    <h2 class="text-2xl font-bold text-on-surface tracking-tight">Payment Method</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <label class="relative flex items-center p-6 bg-surface-container rounded-lg cursor-pointer border-2 border-transparent has-[:checked]:border-primary transition-all">
+
+    <input  class="material-symbols-outlined  font-bold text-on-surface  text-primary text-3xl mr-4" data-icon="payments"  type="radio" name="payment_method" value="cod" checked>
+        Cash on Delivery
+    <div>
+    </div>
+    </label>
+    <label class="relative flex items-center p-6 bg-surface-container rounded-lg cursor-pointer border-2 border-transparent has-[:checked]:border-primary transition-all">
+    <input type="radio" name="payment_method" value="online">
+    <span class="material-symbols-outlined text-stone-500 text-3xl mr-4" data-icon="credit_card">credit_card</span>
+    <div>
+    <p class="font-bold text-on-surface">Online Payment</p>
+
+    </div>
+    </label>
+    </div>
+    @error('payment_method')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+    </section>
+    </div>
+    <!-- Right Column: Order Summary (Sticky) -->
+    <div class="lg:col-span-5 lg:sticky lg:top-12">
+    <div class="bg-surface-container-lowest p-8 lg:p-10 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
+    <h2 class="text-2xl font-bold text-on-surface mb-8 tracking-tight">Order Summary</h2>
+    <div class="space-y-4 mb-8">
+    <div class="flex justify-between items-center text-on-surface-variant">
+    <span>Subtotal</span>
+    <span class="font-bold" id="subtotal">{{ $subtotal  }}</span>
+    </div>
+    <div class="flex justify-between items-center text-on-surface-variant">
+    <span>Shipping</span>
+    <span id="shipping"> جنيه 0</span>
+    </div>
+    <div class="flex justify-between items-center text-tertiary">
+    <span>Promo Discount</span>
+    <span class="font-bold">-$2.00</span>
+    </div>
+    <div class="pt-4 border-t border-stone-100 flex justify-between items-center text-2xl font-extrabold text-on-surface">
+    <span>Total</span>
+    <span id="total">{{ $subtotal }}</span>
+    </div>
+    </div>
+    <div class="space-y-4">
+    <div class="relative">
+    <input class="w-full bg-surface-container border-none p-4 pr-24 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" placeholder="Promo code" type="text"/>
+    <button class="absolute right-2 top-2 bottom-2 px-4 bg-primary-fixed text-on-primary-fixed font-bold rounded-lg text-sm hover:bg-primary transition-colors">Apply</button>
+    </div>
+    <button  type="submit" class="w-full py-5 bg-gradient-to-r from-primary to-primary-container text-white font-bold text-lg rounded-full shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-300">
+                                Place Order
+                            </button>
+    </div>
+    <div class="mt-8 flex items-center justify-center gap-3 text-stone-400 text-sm">
+    <span class="material-symbols-outlined text-lg" data-icon="lock" data-weight="fill">lock</span>
+    <p>Secure SSL Encrypted Checkout</p>
+    </div>
+    <!-- Subtle Benefit Highlight (Asymmetric/Editorial) -->
+    <div class="mt-10 p-6 bg-secondary-fixed rounded-lg relative overflow-hidden">
+    <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-secondary/10" data-icon="eco">eco</span>
+    <h4 class="text-on-secondary-fixed font-bold text-lg relative z-10">Fresh Guarantee</h4>
+    <p class="text-on-secondary-fixed-variant text-sm mt-1 relative z-10">Harvested within 24 hours of delivery. If it's not fresh, it's free.</p>
+    </div>
+
+    </div>
+    </div>
+    </form>
+    </div>
+
+    </main>
+    <script>
+        let subtotal = {{ $subtotal }};
+        let discount = 0; // ممكن تخليه ديناميك بعدين
+
+        const zoneSelect = document.getElementById('shipping_zone');
+        const shippingEl = document.getElementById('shipping');
+        const totalEl = document.getElementById('total');
+
+        zoneSelect.addEventListener('change', function () {
+            let selectedOption = this.options[this.selectedIndex];
+            let shippingPrice = selectedOption.getAttribute('data-price') || 0;
+
+            shippingPrice = parseFloat(shippingPrice);
+
+            shippingEl.innerText = shippingPrice + ' جنيه';
+
+            let total = subtotal + shippingPrice - discount;
+
+            totalEl.innerText = total + ' جنيه';
+        });
+    </script>
+
+    @endsection

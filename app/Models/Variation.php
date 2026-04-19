@@ -20,5 +20,9 @@ class Variation extends Model
     {
         return $this->belongsToMany(Order::class, 'order_product')->withPivot('quantity', 'price');
     }
+public function images()
+{
+    return $this->morphMany(Image::class, 'imageable');
+}
     //
 }

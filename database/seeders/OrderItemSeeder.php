@@ -4,40 +4,28 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\OrderItem;
-
 class OrderItemSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        OrderItem::updateOrCreate([
-            'order_id' => 1,
-            'product_id' => 1,
-            'quantity' => 2,
-            'unit_price' => 50.00
-        ]);
-        OrderItem::updateOrCreate([
-            'order_id' => 1,
-            'product_id' => 2,
-            'quantity' => 1,
-            'unit_price' => 50.00,
-        ]);
-        OrderItem::updateOrCreate([
-            'order_id' => 2,
-            'product_id' => 3,
-            'quantity' => 3,
-            'unit_price' => 60.00,
-        ]);
-        OrderItem::updateOrCreate([
-            'order_id' => 2,
-            'product_id' => 4,
-            'quantity' => 2,
-            'unit_price' => 40.00,
-            
-        ]);
-        //
-    }
+$orders = Order::all();
+$products = Product::all();
+
+if ($orders->isEmpty() || $products->isEmpty()) {
+    $this->command->info('لا يوجد طلبات أو منتجات لإنشاء عناصر الطلب.');
+    return;
 }
+
+foreach ($orders as $order) {
+    $product = $products->random(); // استخدام منتج موجود
+    OrderItem::create([
+        'order_id' => $order->id,
+        'product_id' => $product->id,
+        'quantity' => rand(1, 5),
+        'unit_price' => $product->price,
+        'cost' => $product->cost_price,
+    ]);
+}}}

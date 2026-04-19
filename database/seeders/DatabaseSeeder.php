@@ -19,12 +19,20 @@ class DatabaseSeeder extends Seeder
     {
             $this->call([
                 UserSeeder::class,
+                AdminSeeder::class,
                 CategorySeeder::class,
                 ProductSeeder::class,
+                ShippingZoneSeeder::class,
+                ReviewsSeeder::class,
                 OrderSeeder::class,
                 PaymentSeeder::class,
+
                 OrderItemSeeder::class,
                 DiscountSeeder::class,
+                SliderSeeder::class,
+                BannerSeeder::class,
+
+
             ]);
 
         // User::factory(10)->create();

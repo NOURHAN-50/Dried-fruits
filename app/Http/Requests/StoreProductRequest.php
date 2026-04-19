@@ -28,10 +28,10 @@ class StoreProductRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'sale_price' => 'nullable|numeric|min:0|lt:price',
             'category_id' => 'required|exists:categories,id',
-            'stock' => 'required|integer|min:0',
+            'main_stock' => 'required|integer|min:0',
             'status' => 'required|in:متاح,غير متاح',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'images' => 'nullable|array|max:5', // Allow up to 5 images per product
+            'cost_price'=>'required|numeric|min:0'
+
             //
         ];
     }
@@ -53,11 +53,7 @@ class StoreProductRequest extends FormRequest
             'stock.min' => 'المخزون لا يمكن أن يكون سالبًا.',
             'status.required' => 'الحالة مطلوبة.',
             'status.in' => 'الحالة يجب أن تكون إما "متاح" أو "غير متاح".',
-            'images.*.image' => 'كل ملف يجب أن يكون صورة.',
-            'images.*.mimes' => 'كل صورة يجب أن تكون من نوع jpeg, png, jpg, أو gif.',
-            'images.*.max' => 'كل صورة يجب ألاتتجاوز 2 ميجابايت.',
-            'images.array' => 'الصور يجب أن تكون مصفوفة.',
-            'images.max' => 'يمكن تحميل حتى 5 صور فقط لكل منتج.',   
+            'cost_price'=>'السعر الأساسي مطلوب.'
         ];
     }
 }

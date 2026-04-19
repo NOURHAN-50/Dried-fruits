@@ -36,10 +36,6 @@ class OrderController extends Controller
     {
         // Handle order update
     }
-    public function destroy($id)
-    {
-        // Delete an order
-    }
 
     public function updateStatus(Request $request, Order $order)
 {

@@ -18,7 +18,7 @@
           </div>
           <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item w-100">
-              <a class="nav-link" href="{{ route('dashboard')}}">
+              <a class="nav-link" href="{{ route('admin.dashboard')}}">
                 <i class="fe fe-home fe-16"></i>
                 <span class="ml-3 item-text">لوحة القيادة</span>
               </a>
@@ -47,7 +47,7 @@
               </a>
             </li>
             <li class="nav-item w-100">
-              <a class="nav-link" href="./customers.html">
+              <a class="nav-link" href="{{ route('admin.customers.index')}}">
                 <i class="fe fe-users fe-16"></i>
                 <span class="ml-3 item-text mb-0">العملاء <span class="badge badge-pill badge-info ml-1">قريباً</span></span>
               </a>
@@ -59,7 +59,7 @@
               </a>
             </li>
             <li class="nav-item w-100">
-              <a class="nav-link" href="./reviews.html">
+              <a class="nav-link" href="{{ route('admin.reviews.index') }}">
                 <i class="fe fe-star fe-16"></i>
                 <span class="ml-3 item-text">التقييمات</span>
               </a>
@@ -75,8 +75,15 @@
                 <span class="ml-3 item-text">الخصومات والعروض</span>
               </a>
             </li>
+                        <li class="nav-item w-100">
+              <a class="nav-link" href="{{ route('admin.ShippingZone.index') }}">
+                <i class="fe fe-percent fe-16"></i>
+                <span class="ml-3 item-text">
+                    الشحن  </span>
+              </a>
+            </li>
             <li class="nav-item w-100">
-              <a class="nav-link" href="./sliders-banners.html">
+              <a class="nav-link" href="{{ route('admin.sliders.index') }}">
                 <i class="fe fe-image fe-16"></i>
                 <span class="ml-3 item-text">البنرات والسلايدر</span>
               </a>

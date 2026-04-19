@@ -32,10 +32,9 @@ class CategoryController extends Controller
         $category = Category::create($data);
             $imageName = MediaHandler::upload($request->image, 'categories');
 
-    Product::create([
-        'name' => $request->name,
-        'image' => $imageName
-    ]);
+        $category->images()->create([
+            'path' => $imageName
+        ]);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
@@ -48,21 +47,23 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $validated = $request->validated();
-        $category->update($validated);
+          $category->update($validated);
+
+
     if ($request->hasFile('image')) {
-        $imageName = MediaHandler::updateMedia(
-            $request->image,
-            'categories',
-            $category->image
-        );
-    } else {
-        $imageName = $category->image;
+        // حذف الصورة القديمة إذا موجودة
+        if ($category->images()->exists()) {
+            $category->images()->delete();
+        }
+
+        $imageName = MediaHandler::upload($request->image, 'categories');
+
+        $category->images()->create([
+            'path' => $imageName
+        ]);
     }
 
-    $category->update([
-        'name' => $request->name,
-        'image' => $imageName
-    ]);
+
 
 
 

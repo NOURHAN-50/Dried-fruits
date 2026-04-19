@@ -25,6 +25,8 @@
                             <th>اسم المنتج</th>
                             <th>السعر الأساسي</th>
                             <th>سعر التخفيض</th>
+                            <th>سعر التكلفه</th>
+                            <th>الربح </th>
                             <th>المخزون</th>
                             <th>التصنيف</th>
                             <th>الحالة</th>
@@ -35,14 +37,27 @@
                             @foreach ($products as $product)
                           <tr>
                             <td><div class="avatar avatar-sm">
-<img src="{{ $product->image_url }}"
-     class="avatar-img rounded">
+@php $image = $product->images->first(); @endphp
+
+@if($image)
+    <img
+        src="{{ asset('storage/products/' . $image->path) }}"
+        width="50"
+    >
+@else
+    <span>لا توجد صورة</span>
+@endif
                                 </div>
                         </td>
+
                             <td> {{ $product->name }} </td>
                             <td> {{ $product->price }} </td>
                             <td> {{ $product->sale_price }} </td>
-                            <td> {{ $product->stock }} </td>
+                            <td>
+                                {{$product->cost_price   }}
+                            </td>
+                            <td> {{ $product->price }}{{$product->cost_price   }} </td>
+                            <td> {{ $product->main_stock }} </td>
                             <td> {{ $product->category->name }} </td>
                             <td><span class="badge badge-success">{{ $product->status }}</span></td>
                             <td>

@@ -7,12 +7,21 @@ use Illuminate\Support\Str;
 
 class Category extends Model
 {
-    protected static function boot()
+   protected static function boot()
 {
     parent::boot();
 
     static::creating(function ($category) {
-        $category->slug = Str::slug($category->name);
+
+        $slug = Str::slug($category->name);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (Category::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count++;
+        }
+
+        $category->slug = $slug;
     });
 }
     protected $fillable = ['name', 'slug', 'parent_id'];

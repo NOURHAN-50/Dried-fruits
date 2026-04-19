@@ -18,8 +18,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 8, 2);
             $table->decimal('sale_price', 10, 2 )->nullable();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->integer('stock')->default(0);
+            $table->decimal('cost_price', 10, 2)->nullable();
+                        $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->integer('main_stock')->default(0);
             $table->string('status')->default('active');
             $table->timestamps();
         });

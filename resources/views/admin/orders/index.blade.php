@@ -65,7 +65,7 @@
                                         </td>
                                         <td>
                                             <button class="btn btn-sm btn-primary view-details"
-                                                data-order='@json($order)'>
+                                            data-id="{{ $order->id }}">
                                                 عرض التفاصيل
                                             </button>
                                         </td>
@@ -123,10 +123,11 @@
 </main>
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+@push('scripts')
 <script>
-$(document).ready(function() {
 
+
+$(document).ready(function() {
     $.ajaxSetup({
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
     });
@@ -134,42 +135,18 @@ $(document).ready(function() {
     let currentOrder = null;
 
     // عرض تفاصيل الطلب
-    $(document).on('click', '.view-details', function() {
-        currentOrder = $(this).data('order');
-        $('#orderDetailsModal').modal('show');
+$('#ordersTable').on('click', '.view-details', function() {
+    console.log('clicked');
 
-        let html = `
-            <p><strong>الاسم:</strong> ${currentOrder.customer_name}</p>
-            <p><strong>الهاتف:</strong> ${currentOrder.phone || 'N/A'}</p>
-            <p><strong>العنوان:</strong> ${currentOrder.address}</p>
-            <p><strong>طريقة الدفع:</strong> ${currentOrder.payment?.payment_method || 'N/A'}</p>
-            <p><strong>ملاحظات العميل:</strong> ${currentOrder.notes || '-'}</p>
-            <hr>
-            <h6>المنتجات:</h6>
-            <table class="table table-sm table-bordered">
-                <thead>
-                    <tr>
-                        <th>المنتج</th>
-                        <th>السعر</th>
-                        <th>الكمية</th>
-                        <th>الإجمالي</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${currentOrder.items.map(item => `
-                        <tr>
-                            <td>${item.product.name} ${item.variation?.name || ''}</td>
-                            <td>EGP ${item.unit_price}</td>
-                            <td>${item.quantity}</td>
-                            <td>EGP ${item.unit_price * item.quantity}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
+    let orderId = $(this).data('id');
+
+    $('#orderDetailsModal').modal('show');
+    $('#order-details-content').html('جار التحميل...');
+
+    $.get(`/admin/orders/${orderId}`, function(html){
         $('#order-details-content').html(html);
-        $('#orderStatusSelect').val(currentOrder.status);
     });
+});
 
     // حفظ الحالة
     $('#saveStatusBtn').click(function() {
@@ -177,16 +154,16 @@ $(document).ready(function() {
 
         const status = $('#orderStatusSelect').val();
 
-        $.post(/admin/orders/${currentOrder.id}/update-status, {status: status}, function(res){
+$.post(`/admin/orders/${currentOrder.id}/update-status`, {status: status}, function(res){
             if(res.success){
-                let badge = $(#orderStatusText-${currentOrder.id});
+                let badge = $(`#orderStatusText-${currentOrder.id}`);
                 badge.text(res.status);
                 badge.removeClass().addClass('badge badge-' + (function(s){
                     switch(s){
                         case 'pending': return 'warning';
                         case 'processing': return 'info';
                         case 'shipped': return 'primary';
-                        case 'delivered': return 'success';
+                        case 'completed': return 'success';
                         case 'cancelled': return 'danger';
                         default: return 'secondary';
                     }

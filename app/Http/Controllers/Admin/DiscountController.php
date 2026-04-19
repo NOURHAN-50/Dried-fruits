@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\storediscountRequest;
-use App\Http\Requests\updatdiscountRequest;
+use App\Http\Requests\StoreDiscountRequest;
+use App\Http\Requests\UpdateDiscountRequest;
 use App\Models\Discount;
 use App\Models\Product;
 
@@ -23,7 +23,7 @@ class DiscountController extends Controller
         return view('admin.discounts.create');
         // Show form to create a discount
     }
-    public function store(storediscountRequest $request)
+    public function store(StoreDiscountRequest $request)
     {
 
             $data = $request->validated();
@@ -46,7 +46,7 @@ class DiscountController extends Controller
         return view('admin.discounts.edit', compact('discount'));
         // Show form to edit a discount
     }
-    public function update(updatdiscountRequest $request, $id)
+    public function update(UpdateDiscountRequest $request, $id)
     {
         $discount = Discount::findOrFail($id);
         $data = $request->validated();

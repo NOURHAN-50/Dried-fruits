@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class storediscountRequest extends FormRequest
+class StoreDiscountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -44,10 +44,10 @@ class storediscountRequest extends FormRequest
 
 'target_id' => 'nullable|exists:products,id',
 
-'active' => 'boolean'
+'active' => 'boolean',
 
 ];
-        
+
 
     }
     public function messages(): array

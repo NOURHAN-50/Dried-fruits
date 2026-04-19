@@ -13,21 +13,15 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table
-                ->foreignId('order_id')
-                ->constrained('orders')
-                ->onDelete('cascade');
-            $table
-                ->foreignId('product_id')
-                ->constrained('products')
-                ->onDelete('cascade');
-            $table->foreignId('variation_id')->nullable()->constrained('varitions')->onDelete('set null');
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('variation_id')->nullable()->constrained()->nullOnDelete();
             $table->integer('quantity');
+            $table->decimal('cost', 8, 2); // تكلفة المنتج وقت الشراء
             $table->decimal('unit_price', 8, 2);
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
