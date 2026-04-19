@@ -40,7 +40,7 @@ class OrderController extends Controller
     public function updateStatus(Request $request, Order $order)
 {
     $request->validate([
-        'status' => 'required|in:pending,processing,shipped,completed,cancelled',
+        'status' => 'required|in:pending,processing,shipped,delivered,cancelled',
     ]);
 
     $order->update(['status' => $request->status]);
@@ -61,6 +61,6 @@ public function filter(Request $request)
         ->latest()
         ->get();
 
-    return view('admin.orders.partial.table', compact('orders'))->render();
+    return view('admin.orders.partials.table', compact('orders'))->render();
 }
 }

@@ -16,7 +16,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::with( 'parent', 'products','images')->whereNull('parent_id')->get();
+        $categories = Category::with( 'parent', 'products','images')->get();
         return view('admin.categories.index', compact('categories'));
         // List categories
     }
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
         $category = Category::create($data);
-            $imageName = MediaHandler::upload($request->image, 'categories');
+        $imageName = MediaHandler::upload($request->image, 'categories');
 
         $category->images()->create([
             'path' => $imageName

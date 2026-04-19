@@ -17,7 +17,7 @@
                                     <li><button class="btn btn-sm btn-warning filter-status" data-status="pending">طلبات جديدة</button></li>
                                     <li><button class="btn btn-sm btn-info filter-status" data-status="processing">قيد التجهيز</button></li>
                                     <li><button class="btn btn-sm btn-primary filter-status" data-status="shipped">تم الشحن</button></li>
-                                    <li><button class="btn btn-sm btn-success filter-status" data-status="completed">تم التوصيل</button></li>
+                                    <li><button class="btn btn-sm btn-success filter-status" data-status="delivered">تم التوصيل</button></li>
                                     <li><button class="btn btn-sm btn-danger filter-status" data-status="cancelled">ملغي</button></li>
                                 </ul>
                             </div>
@@ -47,7 +47,7 @@
                                             case 'pending': $class='warning'; break;
                                             case 'processing': $class='info'; break;
                                             case 'shipped': $class='primary'; break;
-                                            case 'completed': $class='success'; break;
+                                            case 'delivered': $class='success'; break;
                                             case 'cancelled': $class='danger'; break;
                                             default: $class='secondary'; break;
                                         }
@@ -108,7 +108,7 @@
                             <option value="pending">طلب جديد</option>
                             <option value="processing">قيد التجهيز</option>
                             <option value="shipped">تم الشحن</option>
-                            <option value="completed">تم التوصيل</option>
+                            <option value="delivered">تم التوصيل</option>
                             <option value="cancelled">ملغي</option>
                         </select>
                     </div>
@@ -139,6 +139,8 @@ $('#ordersTable').on('click', '.view-details', function() {
     console.log('clicked');
 
     let orderId = $(this).data('id');
+    currentOrder = { id: orderId, status: $(this).closest('tr').data('status') };
+    $('#orderStatusSelect').val(currentOrder.status);
 
     $('#orderDetailsModal').modal('show');
     $('#order-details-content').html('جار التحميل...');
@@ -163,7 +165,7 @@ $.post(`/admin/orders/${currentOrder.id}/update-status`, {status: status}, funct
                         case 'pending': return 'warning';
                         case 'processing': return 'info';
                         case 'shipped': return 'primary';
-                        case 'completed': return 'success';
+                        case 'delivered': return 'success';
                         case 'cancelled': return 'danger';
                         default: return 'secondary';
                     }
@@ -177,17 +179,17 @@ $.post(`/admin/orders/${currentOrder.id}/update-status`, {status: status}, funct
         });
     });
 
-    // فلترة بدون Reload
-    $('.filter-status').click(function() {
+    // فلترة باستخدام AJAX
+    $('.filter-status').click(function(e) {
+        e.preventDefault();
         let status = $(this).data('status');
 
-        $('#ordersTable tr').each(function() {
-            let rowStatus = $(this).data('status');
-            if(status === 'all' || rowStatus === status) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
+        $('#ordersTable').html('<tr><td colspan="7" class="text-center">جار التحميل...</td></tr>');
+
+        $.get('/admin/orders/filter', {status: status}, function(html){
+            $('#ordersTable').html(html);
+        }).fail(function() {
+            $('#ordersTable').html('<tr><td colspan="7" class="text-center text-danger">حدث خطأ أثناء تحميل الطلبات.</td></tr>');
         });
     });
 

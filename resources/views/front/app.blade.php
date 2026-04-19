@@ -1,7 +1,11 @@
 @include('front.layouts.header')
 @include('front.layouts.nav')
+
+
 @yield('hero')
 @yield('category')
 @yield('new_products')
 @yield('reviews')
+
+
 @include('front.layouts.footer')

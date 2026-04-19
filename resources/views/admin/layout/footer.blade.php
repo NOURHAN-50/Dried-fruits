@@ -1,5 +1,4 @@
 </div>
-    <script src="{{ asset('sit/js/jquery.min.js') }}"></script>
     <script src="{{ asset('sit/js/popper.min.js') }}"></script>
     <script src="{{ asset('sit/js/moment.min.js') }}"></script>
     <script src="{{ asset('sit/js/bootstrap.min.js') }}"></script>
@@ -234,7 +233,7 @@
         });
       }
     </script>
-    <script src="js/apps.js"></script>
+    <script src="{{ asset('sit/js/apps.js') }}"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
     <script>

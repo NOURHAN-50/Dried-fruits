@@ -11,11 +11,10 @@ class HomeController extends Controller
 {
  public function index() {
 
-    // هات كل الكاتيجوريز
-      $categories = Category::with('images')->orderBy('created_at', 'desc')->take(4)->get();
-      
-    // آخر 4 منتجات
+    $categories = Category::with('images')->orderBy('created_at', 'desc')->take(4)->get();
+
     $newProducts = Product::with('images','reviews')->orderBy('created_at', 'desc')->take(4)->get();
+
     $reviews= Review::all();
 
     return view('front.home.index', compact('categories',  'newProducts','reviews'));
