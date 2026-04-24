@@ -24,5 +24,9 @@ public function images()
 {
     return $this->morphMany(Image::class, 'imageable');
 }
+    public function mainImage()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
     //
 }

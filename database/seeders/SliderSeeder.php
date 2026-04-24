@@ -17,7 +17,7 @@ class SliderSeeder extends Seeder
      Slider::updateOrCreate([
             'title' => 'خصومات الصيف',
             'subtitle' => 'خصومات تصل إلى 40%',
-            'link' => '/offers',
+            'link' => 'http://127.0.0.1:8000/shop',
             'is_active' => 1
         ]);
 

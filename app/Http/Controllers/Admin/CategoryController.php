@@ -18,13 +18,11 @@ class CategoryController extends Controller
     {
         $categories = Category::with( 'parent', 'products','images')->get();
         return view('admin.categories.index', compact('categories'));
-        // List categories
     }
     public function create()
     {
         $categories = Category::all();
         return view('admin.categories.create', compact('categories'));
-        // Show form to create a category
     }
     public function store(CategoryRequest $request)
     {
@@ -42,7 +40,6 @@ class CategoryController extends Controller
     {
         $categories = Category::where('id', '!=', $category->id)->get();
         return view('admin.categories.edit', compact('category', 'categories'));
-        // Show form to edit a category
     }
     public function update(CategoryRequest $request, Category $category)
     {
@@ -51,7 +48,6 @@ class CategoryController extends Controller
 
 
     if ($request->hasFile('image')) {
-        // حذف الصورة القديمة إذا موجودة
         if ($category->images()->exists()) {
             $category->images()->delete();
         }
@@ -68,14 +64,12 @@ class CategoryController extends Controller
 
 
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
-        // Update a category
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
         return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
-        // Delete a category
     }
     //
 }

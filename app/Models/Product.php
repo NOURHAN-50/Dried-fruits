@@ -32,6 +32,11 @@ class Product extends Model
     {
         return $this->hasMany(Variation::class);
     }
+    public function discounts()
+{
+    return $this->hasMany(Discount::class, 'target_id')
+        ->where('target_type', 'product');
+}
 
 
     public function orders()
@@ -45,6 +50,11 @@ class Product extends Model
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+        public function mainImage()
+    {
+        return $this->morphOne(Image::class, 'imageable')
+            ->where('is_main', true);
     }
     public function reviews()
     {
@@ -63,11 +73,18 @@ public function getFinalData($variationId = null)
     }
 
     return [
-        'price' => $variation->price ?? $this->price,
+        'price' => $variation->price_override ?? $this->price,
         'stock' => $variation->stock ?? $this->stock,
-        'image' => $variation->image ?? optional($this->images->first())->path,
+        'image' => ($variation && $variation->images->count()) ? $variation->images->first()->path : optional($this->images->first())->path,
         'variation_id' => $variation?->id,
     ];
 }
-   //
+    public function isInStock()
+    {
+    if ($this->variations()->count() > 0) {
+        return $this->variations()->where('stock', '>', 0)->exists();
+    }
+
+    return $this->main_stock > 0;
+    }
 }

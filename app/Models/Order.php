@@ -12,7 +12,7 @@ use App\Models\OrderItem;
 
 class Order extends Model
 {
-    protected $fillable = ['shipping_price','shipping_zone_id','customer_name','phone', 'total_price', 'status', 'address', 'discount_total','notes', 'cost', 'profit','customer_id'];
+    protected $fillable = ['shipping_price','shipping_zone_id','customer_name','phone', 'total_price', 'status', 'address', 'discount_total','notes', 'cost', 'profit','customer_id', 'discount_code'];
     public function products()
     {
         return $this->belongsToMany(Product::class)->withPivot('quantity', 'price');

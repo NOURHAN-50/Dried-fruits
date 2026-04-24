@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
-            $table->id();
-            $table->morphs('imageable');
-            $table->boolean('is_main')->default(false);
-            $table->string('path');
-            $table->timestamps();
+        Schema::table('payments', function (Blueprint $table) {
+            $table->string('payment_method')->change();
         });
     }
 
@@ -25,6 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::table('payments', function (Blueprint $table) {
+        });
     }
 };

@@ -1,5 +1,5 @@
 @extends('front.app')
-@section('hero')
+@section('content')
 
 <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
 <!-- Breadcrumbs -->
@@ -29,11 +29,16 @@
                         Limited Harvest
                     </div>
 </div>
-<div class="col-span-3 rounded-lg overflow-hidden bg-surface-container-lowest aspect-square">
-<img alt="Detail view" class="w-full h-full object-cover" data-alt="Macro photography of a single dried mango slice showing its rich fibrous texture and glistening natural sugars under warm morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm2byvkwYcumsFL3aVvORDeA_zj7QA4k39wfwo-k_YkH3zYvK-tkimuHyc9TW1FyLLm9ugqwrd1slu5LSZgO5jZXHwfFoOmmK9n251NjVG-tq1mGhZwEgsNamJOLwVPv-I38hC72UxEPGVx0iti6-hnJWqtyAE2jHd1ustTB7VfF3CDWlQ3qceSWnNy89dRDVCjXSV9OQlgFifUZRQbE79ROjz05zlmBH9VKHlcfp9tf-UHkKzhLmN4Jqvb0XjuG0gZWPwZGNy-uCI"/>
-</div>
-<div class="col-span-3 rounded-lg overflow-hidden bg-surface-container-lowest aspect-square">
-<img alt="Lifestyle view" class="w-full h-full object-cover" data-alt="Artisanal glass jar filled with dried mango slices sitting on a rustic wooden table next to fresh green leaves in a bright sunlit kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI92uJ3PdEqBIZkzEfglwjywVRRtmqhauQrD1PCFmHqU5jKxwQjVcJ7kjZt79OeJyjLHwpswVQRp4lpzP5nojc_4iVsLJHHqVHnSN3oBbExDIzC1t4uKi-FBYnk2iME_o0l1owPwsXgpdL2167gZCsDqGZajK60H-mvFFiGJ6hSBfGD_FdJhQQyJM48L8zeCyt2Ah-x7ocKVKe3OhRzIRwnNiaPknyXlq9ECcuOvQnzJHigfpBDjeB2efRcBIXyh-ddeZfxe9SYPX4"/>
+<div class="col-span-3 grid grid-cols-2 gap-2">
+            @foreach($product->images as $img)
+        <img
+            src="{{ asset('storage/products/' . $img->path) }}"
+            alt="Detail view"
+            class="w-full h-full  object-cover rounded-md cursor-pointer border hover:border-primary"
+            data-alt="Macro photography of a single dried mango slice showing its rich fibrous texture and glistening natural sugars under warm morning light"
+            onclick="changeMainImage(this.src)"
+        >
+    @endforeach
 </div>
 </div>
 <!-- Product Info -->
@@ -63,20 +68,19 @@
     @if($product->variations->count())
 
     @else
-        Stock: {{ $product->stock }}
+        Stock:  {{ $product->main_stock }}
     @endif
 </p>
 
 <div class="flex gap-4">
 @foreach($product->variations as $variation)
 <button
-
     type="button"
     class="variation-btn flex-1 py-4 px-2 rounded-lg bg-surface-container-low text-on-surface transition-all"
     data-id="{{ $variation->id }}"
-    data-stock="{{ $variation->stock }}"
+    data-stock="{{ (int) $variation->stock }}"
     data-price="{{ $variation->price_override ?? $product->price }}"
-    data-image="{{ $variation->image ? asset('storage/products/' . $variation->image->path) : asset('storage/products/' . $product->images->first()->path) }}"
+    data-image="{{ $variation->images->count() ? asset('storage/products/' . $variation->images->first()->path) : ($product->images->count() ? asset('storage/products/' . $product->images->first()->path) : '') }}"
 >
     <div class="text-xs font-bold">{{ $variation->weight }} جرام </div>
     <div class="text-sm font-semibold opacity-60">
@@ -87,24 +91,25 @@
 </div>
 </div>
 {{-- عرض حالة المخزون --}}
-@if($product->variations->count())
-    {{-- لازم يختار variation --}}
-    <button  disabled id="addBtn">اختار المقاس الأول</button>
-@else
-        <button disabled>Out of Stock</button>
-
-@endif
 <!-- Main CTA -->
 <div class="space-y-4 mb-12">
     <input type="hidden" id="selectedVariation">
 
-<button
-type="button"
- data-id="{{ $product->id }}"
-  id="addToCartBtn"
- class="add-to-cart-btn w-full py-5 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-full font-bold text-lg shadow-[0_20px_40px_rgba(71,102,75,0.2)] hover:scale-[1.02] active:scale-95 transition-all">
-                        Add to Cart
-                    </button>
+    @if($product->variations->count() > 0)
+        <button type="button" disabled data-id="{{ $product->id }}" id="addToCartBtn" class="add-to-cart-btn w-full py-5 bg-gray-400 text-white rounded-full font-bold text-lg shadow-lg cursor-not-allowed transition-all">
+            Select an Option
+        </button>
+    @else
+        @if($product->main_stock <= 0)
+            <button type="button" disabled data-id="{{ $product->id }}" id="addToCartBtn" class="add-to-cart-btn w-full py-5 bg-red-500 text-white rounded-full font-bold text-lg shadow-lg cursor-not-allowed transition-all">
+                Out of Stock
+            </button>
+        @else
+            <button type="button" data-id="{{ $product->id }}" id="addToCartBtn" class="add-to-cart-btn w-full py-5 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-full font-bold text-lg shadow-[0_20px_40px_rgba(71,102,75,0.2)] hover:scale-[1.02] active:scale-95 transition-all">
+                Add to Cart
+            </button>
+        @endif
+    @endif
 <div class="flex items-center justify-center gap-6 text-xs text-on-surface-variant font-medium">
 <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base" data-icon="eco">eco</span> 100% Organic</span>
 <span class="flex items-center gap-1"><span class="material-symbols-outlined text-base" data-icon="local_shipping">local_shipping</span> Carbon Neutral Shipping</span>
@@ -190,24 +195,24 @@ let imageBox = document.getElementById('mainProductImage');
 let selectedVariation = document.getElementById('selectedVariation');
 let stockBox = document.getElementById('stockBox');
 let addBtn = document.getElementById('addToCartBtn');
+function changeMainImage(src) {
+    document.getElementById('mainProductImage').src = src;
+}
 
 buttons.forEach(btn => {
     btn.addEventListener('click', function () {
         // enable button when variation selected
-addBtn.disabled = false;
-addBtn.innerText = "Add to Cart";
-addBtn.classList.remove('bg-gray-400');
-addBtn.classList.add('bg-gradient-to-r', 'from-primary', 'to-primary-container');
-if (this.dataset.stock <= 0) {
+        addBtn.disabled = false;
+        addBtn.innerText = "Add to Cart";
+        addBtn.classList.remove('bg-gray-400', 'bg-red-500');
+        addBtn.classList.add('bg-gradient-to-r', 'from-primary', 'to-primary-container');
 
-    addBtn.disabled = true;
-    addBtn.innerText = "Out of Stock";
-
-    addBtn.classList.remove('from-primary', 'to-primary-container');
-    addBtn.classList.add('bg-red-500');
-
-    return;
-}
+        if (this.dataset.stock <= 0) {
+            addBtn.disabled = true;
+            addBtn.innerText = "Out of Stock";
+            addBtn.classList.remove('bg-gradient-to-r', 'from-primary', 'to-primary-container', 'bg-gray-400');
+            addBtn.classList.add('bg-red-500');
+        }
 
         // reset الشكل
         buttons.forEach(b => {
@@ -234,5 +239,6 @@ if (this.dataset.stock <= 0) {
         }
     });
 });
+
 </script>
 @endsection

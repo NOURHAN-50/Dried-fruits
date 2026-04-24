@@ -24,7 +24,12 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function(){
         Route::post('/logout', [AdminAuthController::class,'logout'])->name('logout');
         Route::get('sliders', [SliderController::class,'index'])->name('sliders.index');
         Route::post('sliders', [SliderController::class,'store'])->name('sliders.store');
+        Route::delete('sliders/{id}', [SliderController::class,'destroy'])->name('sliders.destroy');
+        Route::get('/sliders/{id}/edit', [SliderController::class, 'edit'])->name('sliders.edit');
+        Route::put('/admin/sliders/{id}', [SliderController::class, 'update'])->name('sliders.update');
+        Route::get('/banners/{id}/edit', [BannerController::class, 'edit'])->name('banners.edit');
         Route::post('banners', [BannerController::class,'store'])->name('banners.store');
+        Route::delete('banners/{id}', [BannerController::class,'destroy'])->name('banners.destroy');
         Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
         Route::resource('ShippingZone', App\Http\Controllers\Admin\ShippingZoneController::class);
         Route::resource('products', App\Http\Controllers\Admin\ProductController::class );

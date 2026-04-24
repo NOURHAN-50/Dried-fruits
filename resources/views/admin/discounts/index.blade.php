@@ -76,101 +76,74 @@
         </div> <!-- .container-fluid -->
 
         <!-- Add Discount Modal -->
-        <div class="modal fade" id="addDiscountModal" tabindex="-1" role="dialog" aria-labelledby="addDiscountModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+         <form action="{{ route('admin.discounts.store') }}" method="POST">
+    @csrf
+
+    <div class="modal fade" id="addDiscountModal" tabindex="-1">
+        <div class="modal-dialog">
             <div class="modal-content">
+
                 <div class="modal-header">
-                <h5 class="modal-title" id="addDiscountModalLabel">إضافة كود خصم جديد</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+                    <h5 class="modal-title">إضافة كود خصم جديد</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <form action="{{ route('admin.discounts.store') }}" method="POST">
-                @csrf
+
                 <div class="modal-body">
-                <div class="form-group">
-    <label>اسم الخصم</label>
-    <input type="text" name="name" class="form-control" required  value="{{ old('name') }}">
-</div>
-                <div class="form-group">
-                    <label for="discountCode">كود الخصم</label>
-                    <input type="text" name="code" class="form-control text-uppercase" id="discountCode" placeholder="مثال: SUMMER24" required value="{{ old('code') }}">
-                    @error('code')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
+                    <div class="form-group">
+                        <label>اسم الخصم</label>
+                        <input type="text" name="name" class="form-control" required>
                     </div>
-                    <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="discountType">نوع الخصم</label>
-                        <select class="form-control" id="discountType" name="type">
-                            <option value="percentage">نسبة مئوية</option>
+
+                    <div class="form-group">
+                        <label>كود الخصم</label>
+                        <input type="text" name="code" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>نوع الخصم</label>
+                        <select name="type" class="form-control">
+                            <option value="percentage">نسبة</option>
                             <option value="fixed">قيمة ثابتة</option>
                         </select>
-                        @error('type')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
                     </div>
-                    <div class="form-group col-md-6">
-                    <label for="discountValue">قيمة الخصم</label>
-                    <input type="number" name="value" class="form-control" id="discountValue" placeholder="القيمة" min="1" required value="{{ old('value') }}">
-                        @error('value')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    </div>
+
                     <div class="form-group">
-<label>نوع التطبيق</label>
-
-<select name="target_type" class="form-control">
-<option value="order">على الطلب بالكامل</option>
-<option value="product">على منتج معين</option>
-</select>
-
-</div>
-<div class="form-group">
-<label>المنتج</label>
-
-<select name="target_id" class="form-control">
-<option value="">كل المنتجات</option>
-
-@foreach($products as $product)
-<option value="{{ $product->id }}">
-{{ $product->name }}
-</option>
-@endforeach
-
-</select>
-
-</div>
-                    <div class="form-row">
-                    <div class="form-group col-md-6">
-                    <label for="discountExpiry">تاريخ الانتهاء</label>
-                    <input type="date" name="expires_at" class="form-control" id="discountExpiry" value="{{ old('expires_at') }}">
-@error('expires_at')
-                        <small class="text-danger">{{ $message }}</small>
-@enderror
+                        <label>القيمة</label>
+                        <input type="number" name="value" class="form-control" required>
                     </div>
-                    <div class="form-group col-md-6">
-                    <label for="discountUsage">الحد الأقصى للاستخدام (اختياري)</label>
-                    <input type="number" name="usage_limit" class="form-control" id="discountUsage" placeholder="غير محدود" value="{{ old('usage_limit') }}">
-                    @error('usage_limit')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
+                    <div class="form-group">
+                        <label>نوع التطبيق</label>
+                        <select name="target_type" class="form-control">
+                            <option value="order">طلب</option>
+                            <option value="product">منتج</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>المنتج</label>
+                        <select name="target_id" class="form-control">
+                            <option value="">كل المنتجات</option>
+                            @foreach($products as $product)
+                                <option value="{{ $product->id }}">
+                                    {{ $product->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="discountActive" name="active" checked>
-                    <label class="custom-control-label" for="discountActive">تفعيل الكود فوراً</label>
-                    </div>
 
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        حفظ الكود
+                    </button>
                 </div>
-              <div class="modal-footer">
-                <a href="{{ route('admin.discounts.index') }}" class="btn btn-secondary">إلغاء</a>
-                <button type="submit" class="btn btn-primary">حفظ الكود</button>
-              </div>
-            </form>
+
             </div>
-          </div>
         </div>
+    </div>
+
+</form>
       </main>
       @endsection

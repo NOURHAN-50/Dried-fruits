@@ -155,6 +155,8 @@ document.querySelectorAll('.add-to-cart-btn').forEach(button => {
 
 </script>
 
+
+
 <script>
 document.querySelectorAll('.increase-btn, .decrease-btn').forEach(btn => {
     btn.addEventListener('click', function () {
@@ -173,6 +175,10 @@ document.querySelectorAll('.increase-btn, .decrease-btn').forEach(btn => {
             if (quantity < 1) return;
         }
 
+        // Optimistically update DOM to handle rapid clicks properly
+        qtyEl.innerText = quantity;
+        priceEl.innerText = unitPrice * quantity;
+
         fetch('/cart/update', {
             method: 'POST',
             headers: {
@@ -188,20 +194,63 @@ document.querySelectorAll('.increase-btn, .decrease-btn').forEach(btn => {
         .then(res => res.json())
         .then(data => {
 
-            // 1- update quantity
-            qtyEl.innerText = quantity;
-
-            // 2- update product price
-            priceEl.innerText = unitPrice * quantity;
-
             // 3- update subtotal + total
             document.getElementById('subtotal').innerText = data.subtotal;
             document.getElementById('total').innerText = data.total;
+
+            // 4- update cart badge count
+            let cartCountEl = document.getElementById('cart-count');
+            if (cartCountEl && data.cart_count !== undefined) {
+                cartCountEl.innerText = data.cart_count;
+            }
         })
         .catch(err => console.log(err));
     });
 });
 </script>
+
+<script>
+    const loginModal = document.getElementById("loginModal");
+    const registerModal = document.getElementById("registerModal");
+
+    const goToRegister = document.getElementById("goToRegister");
+    const goToLogin = document.getElementById("goToLogin");
+
+    const openLogin = document.getElementById("openLoginModal");
+    const closeLogin = document.getElementById("closeLoginModal");
+    const closeRegister = document.getElementById("closeRegisterModal");
+
+    // open login
+    openLogin.onclick = () => {
+        loginModal.classList.remove("hidden");
+        loginModal.classList.add("flex");
+    };
+
+    // close login
+    closeLogin.onclick = () => {
+        loginModal.classList.add("hidden");
+    };
+
+    // close register
+    closeRegister.onclick = () => {
+        registerModal.classList.add("hidden");
+    };
+
+    // Login → Register
+    goToRegister.onclick = () => {
+        loginModal.classList.add("hidden");
+        registerModal.classList.remove("hidden");
+        registerModal.classList.add("flex");
+    };
+
+    // Register → Login
+    goToLogin.onclick = () => {
+        registerModal.classList.add("hidden");
+        loginModal.classList.remove("hidden");
+        loginModal.classList.add("flex");
+    };
+</script>
+
 
 
 </body>

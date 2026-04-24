@@ -9,6 +9,8 @@ use App\Models\Order;
 use App\Models\Product;
 
 use App\Models\Variation;
+use App\Models\Discount;
+use Illuminate\Http\Request;
 class CheckoutController extends Controller
 {
 public function index()
@@ -23,6 +25,55 @@ public function index()
     $zones = ShippingZone::all();
 
     return view('front.checkout.index', compact('zones', 'subtotal'));
+}
+
+public function applyDiscount(Request $request)
+{
+    $code = $request->code;
+    $subtotal = $request->subtotal;
+
+    if (!$code) {
+        return response()->json(['success' => false, 'message' => 'يرجى إدخال كود الخصم']);
+    }
+
+    $discount = Discount::where('code', $code)->first();
+
+    if (!$discount) {
+        return response()->json(['success' => false, 'message' => 'كود الخصم غير صحيح']);
+    }
+
+    if (!$discount->active) {
+        return response()->json(['success' => false, 'message' => 'كود الخصم غير فعال']);
+    }
+
+    if ($discount->starts_at && $discount->starts_at > now()) {
+        return response()->json(['success' => false, 'message' => 'كود الخصم غير فعال بعد']);
+    }
+
+    if ($discount->expires_at && $discount->expires_at < now()) {
+        return response()->json(['success' => false, 'message' => 'كود الخصم منتهي الصلاحية']);
+    }
+
+    if ($discount->usage_limit && $discount->times_used >= $discount->usage_limit) {
+        return response()->json(['success' => false, 'message' => 'تم تجاوز الحد الأقصى لاستخدام الكود']);
+    }
+
+    if ($discount->min_order_amount && $subtotal < $discount->min_order_amount) {
+        return response()->json(['success' => false, 'message' => 'الحد الأدنى للطلب غير مستوفى']);
+    }
+
+    $discountAmount = 0;
+    if ($discount->type === 'percentage') {
+        $discountAmount = ($subtotal * $discount->value) / 100;
+    } else {
+        $discountAmount = $discount->value;
+    }
+
+    return response()->json([
+        'success' => true,
+        'discount_amount' => $discountAmount,
+        'message' => 'تم تطبيق الخصم بنجاح'
+    ]);
 }
 
 public function placeOrder(PlaceOrderRequest $request)
@@ -42,13 +93,12 @@ public function placeOrder(PlaceOrderRequest $request)
         $subtotal = 0;
         $cost = 0;
 
-        // 🔥 1) validation + totals + stock check
         foreach ($cart as $item) {
 
             $subtotal += $item['price'] * $item['quantity'];
             $cost += ($item['cost'] ?? 0) * $item['quantity'];
 
-            // 🎯 variation check بسيط
+
             if ($item['variation_id']) {
                 $variation = Variation::find($item['variation_id']);
 
@@ -62,9 +112,24 @@ public function placeOrder(PlaceOrderRequest $request)
             }
         }
 
-        $total = $subtotal + $zone->price;
 
-        // 🔥 2) create order
+        $discountAmount = 0;
+        $appliedDiscount = null;
+        if ($request->discount_code) {
+            $appliedDiscount = Discount::where('code', $request->discount_code)->first();
+            if ($appliedDiscount && $appliedDiscount->active) {
+                if ($appliedDiscount->type === 'percentage') {
+                    $discountAmount = ($subtotal * $appliedDiscount->value) / 100;
+                } else {
+                    $discountAmount = $appliedDiscount->value;
+                }
+                $appliedDiscount->increment('times_used');
+            }
+        }
+
+        $total = $subtotal + $zone->price - $discountAmount;
+
+
         $order = Order::create([
             'customer_id' => auth()->id(),
             'customer_name' => $request->customer_name,
@@ -72,13 +137,23 @@ public function placeOrder(PlaceOrderRequest $request)
             'address' => $request->address,
             'shipping_zone_id' => $zone->id,
             'shipping_price' => $zone->price,
-            'total_price' => $total,
+            'total_price' => max(0, $total),
             'cost' => $cost,
-            'profit' => $total - $cost,
+            'profit' => max(0, $total - $cost),
+            'status' => 'pending',
+            'discount_total' => $discountAmount,
+            'discount_code' => $request->discount_code,
+        ]);
+
+
+        $paymentMethod = $request->payment_method === 'online' ? 'instapay' : 'cash_on_delivery';
+        $order->payment()->create([
+            'amount' => max(0, $total),
+            'payment_method' => $paymentMethod,
             'status' => 'pending',
         ]);
 
-        // 🔥 3) create items + decrement stock
+
         foreach ($cart as $item) {
 
             if ($item['variation_id']) {
@@ -100,9 +175,8 @@ public function placeOrder(PlaceOrderRequest $request)
 
         session()->forget('cart');
 
-        return redirect()->route('home')->with('success', 'Order placed successfully');
-
-    } catch (\Exception $e) {
+return redirect()->route('order.success', $order->id);
+   } catch (\Exception $e) {
 
         DB::rollBack();
 

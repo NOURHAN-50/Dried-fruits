@@ -11,11 +11,10 @@ class CustomersController extends Controller
 {
 public function index(Request $request)
 {
-    // 1. Base Query
     $customers = User::where('role', 'customer')
         ->withCount('orders')
         ->withSum('orders', 'total_price');
-    // 2. Filters (Smart Segmentation)
+
  if ($request->segment == 'vip') {
     $customers->whereHas('orders', function ($q) {
         $q->selectRaw('customer_id, SUM(total_price) as total_spent')
@@ -34,10 +33,8 @@ public function index(Request $request)
         });
     }
 
-    // 3. Pagination
     $customers = $customers->paginate(10);
 
-    // 4. Metrics (الكروت اللي فوق)
     $totalCustomers = User::where('role', 'customer')->count();
 
     $vipCount = User::where('role', 'customer')

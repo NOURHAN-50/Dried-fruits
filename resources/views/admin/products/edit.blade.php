@@ -102,15 +102,24 @@
 
                                     @foreach($product->variations as $variation)
                                     <div class="variation-item border rounded p-3 mb-3 bg-light">
+                                        <input type="hidden" name="variation_id[]" value="{{ $variation->id }}">
                                         <div class="form-row align-items-center">
                                             <div class="col-md-3">
-                                                <input type="text" name="weight" class="form-control form-control-sm" value="{{ $variation->weight }}" placeholder="أحمر - وسط">
+                                                <input type="text" name="weight[]" class="form-control form-control-sm" value="{{ $variation->weight }}" placeholder="أحمر - وسط">
+                                            </div>
+                        <div class="col-md-3">
+                        <label class="small"> الصوره</label>
+                        <input type="file" name="images[]"  value="{{ $variation->images }}" class="form-control form-control-sm">
+
+                      </div>
+
+
+
+                                            <div class="col-md-3">
+                                                <input type="number" name="price_override[]" class="form-control form-control-sm" value="{{ $variation->price_override }}" placeholder="السعر">
                                             </div>
                                             <div class="col-md-3">
-                                                <input type="number" name="price_override" class="form-control form-control-sm" value="{{ $variation->price_override }}" placeholder="السعر">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type="number" name="stock" class="form-control form-control-sm" value="{{ $variation->stock }}" placeholder="المخزون">
+                                                <input type="number" name="stock[]" class="form-control form-control-sm" value="{{ $variation->stock }}" placeholder="المخزون">
                                             </div>
                                             <div class="col-md-3 text-center">
                                                 <button type="button" class="btn btn-sm btn-danger removeVariation">حذف</button>
@@ -169,8 +178,10 @@
                                     @if($product->images->first())
     <img src="{{ asset('storage/products/' . $product->images->first()->path) }}" alt="صورة المنتج" class="img-fluid mb-2">
                                     @endif
-                                    <input type="file" name="images[]" class="form-control" multiple>
-                                    <small class="text-muted mt-2 d-block">يمكنك رفع أكثر من صورة، وسيتم استخدام الصورة الأولى كصورة رئيسية.</small>
+                                    <input type="file" name="main_image" class="form-control" multiple>
+                                <input type="file" name="product_images[]"  class="form-control" multiple>
+
+
                                 </div>
                             </div>
                         </div> <!-- /.col-md-4 -->
@@ -196,6 +207,10 @@ document.getElementById('addVariation').addEventListener('click', function(){
             <div class="col-md-3">
                 <input type="text" name="weight[]" class="form-control form-control-sm" placeholder="أحمر - وسط">
             </div>
+                    <div class="col-md-3">
+      <input type="file" name="images[]" class="form-control form-control-sm">
+    </div>
+
             <div class="col-md-3">
                 <input type="number" name="price_override[]" class="form-control form-control-sm" placeholder="السعر">
             </div>
@@ -215,5 +230,6 @@ document.addEventListener('click', function(e){
         e.target.closest('.variation-item').remove();
     }
 });
+
 </script>
 @endsection

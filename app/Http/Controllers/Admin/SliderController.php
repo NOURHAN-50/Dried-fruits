@@ -22,8 +22,9 @@ class SliderController extends Controller
     {
 
             $data = $request->validated();
-            $data['is_active'] = $request->has('is_active');
+            $data['is_active'] = $request->boolean('is_active');
             $slider= Slider::create($data);
+
 
             if ($request->hasFile('image')) {
 
@@ -33,16 +34,45 @@ class SliderController extends Controller
                     'path' => $imageName
                 ]);
             }
+            dd($request->all());
             return redirect()->route('admin.sliders.index')->with('success', 'تم إضافة السلايدر بنجاح!');
 
-        // Handle discount creation
     }
+    public function edit($id)
+{
+    $slider = Slider::with('images')->findOrFail($id);
+    return view('admin.sliders.edit', compact('slider'));
+}
+public function update(Request $request, $id)
+{
+    $slider = Slider::findOrFail($id);
+
+    $data = $request->validate([
+        'title' => 'nullable|string|max:255',
+        'link' => 'nullable|string',
+        'image' => 'nullable|image|max:2048'
+    ]);
+
+    $data['is_active'] = $request->boolean('is_active');
+
+    $slider->update($data);
+
+    if ($request->hasFile('image')) {
+        $imageName = MediaHandler::upload($request->image, 'sliders');
+
+        $slider->images()->create([
+            'path' => $imageName
+        ]);
+    }
+
+    return redirect()->route('admin.sliders.index')
+        ->with('success', 'تم التعديل بنجاح');
+}
     public function destroy($id)
     {
         $slider = Slider::findOrFail($id);
         $slider->delete();
-        return redirect()->route('admin.sliders.index')->with('success', 'تم حذف كود الخصم بنجاح!');
-        // Delete a discount
+        return redirect()->route('admin.sliders.index')->with('success', 'تم حذف السلايدر بنجاح!');
     }
     //
 }

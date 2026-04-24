@@ -29,7 +29,11 @@
                 <th style="width: 120px;">طريقة الدفع:</th>
                 <td>
                     @if($order->payment)
-                        {{ str_replace('_', ' ', ucfirst($order->payment->payment_method)) }}
+                        @if($order->payment->payment_method === 'instapay')
+                            <span class="badge badge-success">InstaPay</span>
+                        @else
+                            <span class="badge badge-secondary">{{ str_replace('_', ' ', ucfirst($order->payment->payment_method)) }}</span>
+                        @endif
                     @else
                         غير متوفر
                     @endif
@@ -79,7 +83,7 @@
         <tfoot>
             @if($order->discount_total > 0)
             <tr>
-                <td colspan="3" class="text-right"><strong>الخصم:</strong></td>
+                <td colspan="3" class="text-right"><strong>الخصم @if($order->discount_code) (كود: {{ $order->discount_code }}) @endif:</strong></td>
                 <td>-{{ number_format($order->discount_total, 2) }} EGP</td>
             </tr>
             @endif

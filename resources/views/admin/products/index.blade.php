@@ -56,9 +56,9 @@
                             <td>
                                 {{$product->cost_price   }}
                             </td>
-                            <td> {{ $product->price }}{{$product->cost_price   }} </td>
+                            <td> {{ $product->price - $product->cost_price }} </td>
                             <td> {{ $product->main_stock }} </td>
-                            <td> {{ $product->category->name }} </td>
+                            <td> {{ $product->category->name ?? '---' }} </td>
                             <td><span class="badge badge-success">{{ $product->status }}</span></td>
                             <td>
                               <div class="dropdown">

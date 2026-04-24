@@ -10,7 +10,6 @@ use App\Models\ShippingZone;
 
 class CartController extends Controller
 {
-    // عرض الكارت
     public function index()
     {
         $cart = session()->get('cart', []);
@@ -24,7 +23,6 @@ class CartController extends Controller
         return view('front.cart.index', compact('cart', 'subtotal','zones'));
     }
 
-    // إضافة منتج للكارت
 public function add(Request $request, $id)
 {
     $product = Product::with('images', 'variations')->findOrFail($id);
@@ -79,7 +77,6 @@ $stock = $variation?->stock ?? $product->stock;
         'cart_count' => array_sum(array_column($cart, 'quantity'))
     ]);
 }
-    // تحديث الكمية
 public function update(Request $request)
 {
     $cart = session()->get('cart', []);
@@ -102,7 +99,8 @@ public function update(Request $request)
 
     return response()->json([
         'subtotal' => $subtotal,
-        'total' => $total
+        'total' => $total,
+        'cart_count' => array_sum(array_column($cart, 'quantity'))
     ]);
 }
 

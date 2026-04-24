@@ -1,5 +1,5 @@
     @extends('front.app')
-    @section('hero')
+    @section('content')
     <main class="max-w-7xl mx-auto px-8 py-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
@@ -86,9 +86,9 @@
     <span>Shipping</span>
     <span id="shipping"> جنيه 0</span>
     </div>
-    <div class="flex justify-between items-center text-tertiary">
+    <div class="flex justify-between items-center text-tertiary" id="discount-row" style="display: none;">
     <span>Promo Discount</span>
-    <span class="font-bold">-$2.00</span>
+    <span class="font-bold" id="discount-amount">0</span>
     </div>
     <div class="pt-4 border-t border-stone-100 flex justify-between items-center text-2xl font-extrabold text-on-surface">
     <span>Total</span>
@@ -97,9 +97,11 @@
     </div>
     <div class="space-y-4">
     <div class="relative">
-    <input class="w-full bg-surface-container border-none p-4 pr-24 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" placeholder="Promo code" type="text"/>
-    <button class="absolute right-2 top-2 bottom-2 px-4 bg-primary-fixed text-on-primary-fixed font-bold rounded-lg text-sm hover:bg-primary transition-colors">Apply</button>
+    <input id="discount_code_input" class="w-full bg-surface-container border-none p-4 pr-24 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" placeholder="Promo code" type="text"/>
+    <button type="button" id="apply-discount-btn" class="absolute right-2 top-2 bottom-2 px-4 bg-primary-fixed text-on-primary-fixed font-bold rounded-lg text-sm hover:bg-primary transition-colors">Apply</button>
     </div>
+    <div id="discount-message" class="text-sm mt-2"></div>
+    <input type="hidden" name="discount_code" id="discount_code_hidden">
     <button  type="submit" class="w-full py-5 bg-gradient-to-r from-primary to-primary-container text-white font-bold text-lg rounded-full shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-300">
                                 Place Order
                             </button>
@@ -128,18 +130,65 @@
         const zoneSelect = document.getElementById('shipping_zone');
         const shippingEl = document.getElementById('shipping');
         const totalEl = document.getElementById('total');
+        const discountRow = document.getElementById('discount-row');
+        const discountAmountEl = document.getElementById('discount-amount');
+        const discountMessage = document.getElementById('discount-message');
+        const applyDiscountBtn = document.getElementById('apply-discount-btn');
+        const discountCodeInput = document.getElementById('discount_code_input');
+        const discountCodeHidden = document.getElementById('discount_code_hidden');
 
-        zoneSelect.addEventListener('change', function () {
-            let selectedOption = this.options[this.selectedIndex];
-            let shippingPrice = selectedOption.getAttribute('data-price') || 0;
-
+        function updateTotal() {
+            let selectedOption = zoneSelect.options[zoneSelect.selectedIndex];
+            let shippingPrice = selectedOption ? (selectedOption.getAttribute('data-price') || 0) : 0;
             shippingPrice = parseFloat(shippingPrice);
-
             shippingEl.innerText = shippingPrice + ' جنيه';
 
             let total = subtotal + shippingPrice - discount;
+            totalEl.innerText = Math.max(0, total) + ' جنيه';
+        }
 
-            totalEl.innerText = total + ' جنيه';
+        zoneSelect.addEventListener('change', updateTotal);
+
+        applyDiscountBtn.addEventListener('click', function() {
+            const code = discountCodeInput.value.trim();
+            if (!code) return;
+
+            applyDiscountBtn.disabled = true;
+            applyDiscountBtn.innerText = '...';
+
+            fetch('{{ route('checkout.applyDiscount') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ code: code, subtotal: subtotal })
+            })
+            .then(response => response.json())
+            .then(data => {
+                applyDiscountBtn.disabled = false;
+                applyDiscountBtn.innerText = 'Apply';
+
+                if (data.success) {
+                    discount = parseFloat(data.discount_amount);
+                    discountCodeHidden.value = code;
+                    discountMessage.innerHTML = `<span class="text-green-600">${data.message}</span>`;
+                    discountRow.style.display = 'flex';
+                    discountAmountEl.innerText = '-' + discount + ' جنيه';
+                    updateTotal();
+                } else {
+                    discount = 0;
+                    discountCodeHidden.value = '';
+                    discountMessage.innerHTML = `<span class="text-red-600">${data.message}</span>`;
+                    discountRow.style.display = 'none';
+                    updateTotal();
+                }
+            })
+            .catch(error => {
+                applyDiscountBtn.disabled = false;
+                applyDiscountBtn.innerText = 'Apply';
+                console.error('Error:', error);
+            });
         });
     </script>
 

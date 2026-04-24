@@ -12,23 +12,20 @@ public function shop(Request $request)
 {
     $query = Product::with('images', 'reviews', 'category');
 
-    // 🔍 Search
     if ($request->search) {
         $query->where('name', 'like', '%' . $request->search . '%');
     }
 
-    // 🏷️ Filter by category
     if ($request->category) {
         $query->where('category_id', $request->category);
     }
 
-    // 📦 Filter by size (مثال)
     if ($request->size) {
         $query->where('size', $request->size);
     }
 
-    $products = $query->latest()->paginate(6);
-    $categories = Category::all();
+$products = Product::with(['images', 'discounts', 'reviews'])->paginate(12);
+   $categories = Category::all();
 
     return view('front.products.shop', compact('products', 'categories'));
 }

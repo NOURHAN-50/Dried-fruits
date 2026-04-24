@@ -103,8 +103,14 @@
                   <div class="variation-item border rounded p-3 mb-3 bg-light">
                     <div class="form-row align-items-center">
                       <div class="col-md-3">
-                        <label class="small">اللون / المقاس</label>
+                        <label class="small">الوزن </label>
                         <input type="text" name="weight[]" class="form-control form-control-sm">
+
+                      </div>
+                                            <div class="col-md-3">
+                        <label class="small"> الصوره</label>
+                        <input type="file" name="images[]"  class="form-control form-control-sm">
+
                       </div>
                       <div class="col-md-3">
                         <label class="small">السعر</label>
@@ -169,10 +175,15 @@
                   <strong class="card-title">صور المنتج</strong>
                 </div>
                 <div class="card-body">
-                  <input type="file" name="images[]" class="form-control" multiple>
+                  <input type="file" name="main_image" class="form-control" >
                   <small class="text-muted mt-2 d-block">سيتم استخدام الصورة الأولى كصورة رئيسية للمنتج.</small>
                 </div>
+            <div class="card-body">
+                  <input  type="file" name="_images[]" class="form-control" multiple>
+                </div>
+
               </div>
+
             </div> <!-- /.col-md-4 -->
           </div> <!-- /.row -->
 
@@ -196,6 +207,9 @@ document.getElementById('addVariation').addEventListener('click', function(){
       <div class="col-md-3">
         <input type="text" name="weight[]" class="form-control form-control-sm" placeholder="أحمر - وسط">
       </div>
+        <div class="col-md-3">
+      <input type="file" name="images[]" class="form-control form-control-sm">
+    </div>
       <div class="col-md-3">
         <input type="number" name="price_override[]" class="form-control form-control-sm" placeholder="السعر">
       </div>

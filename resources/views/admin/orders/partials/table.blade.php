@@ -14,7 +14,17 @@
     <td>{{ $order->customer_name }}</td>
     <td>{{ $order->created_at->format('d/m/Y') }}</td>
     <td>{{ number_format($order->total_price,2) }} EGP</td>
-    <td>{{ $order->payment->payment_method ?? 'N/A' }}</td>
+    <td>
+        @if($order->payment)
+            @if($order->payment->payment_method === 'instapay')
+                <span class="badge badge-success">InstaPay</span>
+            @else
+                <span class="badge badge-secondary">{{ str_replace('_', ' ', ucfirst($order->payment->payment_method)) }}</span>
+            @endif
+        @else
+            N/A
+        @endif
+    </td>
     <td>
         <span id="orderStatusText-{{ $order->id }}" class="badge badge-{{ $class }}">
             {{ $order->status }}

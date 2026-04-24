@@ -8,7 +8,6 @@ use App\Models\Review;
 
 class ReviewController extends Controller
 {
-          // عرض جميع التقييمات
     public function index()
     {
         $reviews = Review::with('customer', 'product')->latest()->paginate(20);
@@ -22,7 +21,6 @@ class ReviewController extends Controller
 
         return redirect()->back()->with('success', 'تمت الموافقة على التقييم بنجاح!');
     }
-    // حذف تقييم
     public function destroy(Review $review)
     {
         $review->delete();

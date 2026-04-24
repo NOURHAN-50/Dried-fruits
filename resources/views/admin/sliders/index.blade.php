@@ -32,7 +32,7 @@
                           <div class="row align-items-center">
                             <div class="col-auto">
     @if($slider->images->first())
-        <img src="{{ asset('storage/slider/' . $sliser->images->first()->path) }}}" alt="{{ $slider->title }}" width="50">
+        <img src="{{ asset('storage/sliders/' . $slider->images->first()->path) }}" alt="{{ $slider->title }}" width="50">
     @else
         <span>لا توجد صورة</span>
     @endif
@@ -43,22 +43,14 @@
                             </div>
                             <div class="col-auto">
                               <span class="badge badge-success">{{ $slider->is_active ? 'نشط' : 'غير نشط' }}</span>
-                              <button class="btn btn-sm btn-link text-muted"><span class="fe fe-trash-2"></span></button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="list-group-item bg-transparent">
-                          <div class="row align-items-center">
-                            <div class="col-auto">
-                              <img src="./assets/products/p2.jpg" alt="..." class="avatar-img rounded" style="width: 60px; height: 30px; object-fit: cover;">
-                            </div>
-                            <div class="col">
-                              <small><strong>تخفيضات نهاية العام تصل لـ 50%</strong></small>
-                              <div class="my-0 text-muted small">رابط: /offers</div>
-                            </div>
-                            <div class="col-auto">
-                              <span class="badge badge-success">نشط</span>
-                              <button class="btn btn-sm btn-link text-muted"><span class="fe fe-trash-2"></span></button>
+                              <form action="{{ route('admin.sliders.destroy', $slider->id) }}" method="POST" class="d-inline">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-sm btn-link text-muted" onclick="return confirm('هل أنت متأكد من الحذف؟')"><span class="fe fe-trash-2"></span></button>
+                              </form>
+                              <a href="{{ route('admin.sliders.edit', $slider->id) }}" class="btn btn-sm btn-link text-primary">
+    <span class="fe fe-edit"></span>
+</a>
                             </div>
                           </div>
                         </div>
@@ -87,34 +79,28 @@
                         <div class="list-group-item bg-transparent">
                           <div class="row align-items-center">
                             <div class="col-auto">
-                              <div class="avatar avatar-sm bg-light text-muted d-flex align-items-center justify-content-center border rounded" style="width: 60px;">
-                                <span class="fe fe-image"></span>
-                              </div>
+                              @if($banner->images->first())
+                                  <img src="{{ asset('storage/banners/' . $banner->images->first()->path) }}" alt="{{ $banner->title }}" width="50">
+                              @else
+                                  <div class="avatar avatar-sm bg-light text-muted d-flex align-items-center justify-content-center border rounded" style="width: 60px;">
+                                    <span class="fe fe-image"></span>
+                                  </div>
+                              @endif
                             </div>
                             <div class="col">
                               <small><strong> {{ $banner->title }}</strong></small>
                               <div class="my-0 text-muted small"> {{ $banner->location }}</div>
                             </div>
                             <div class="col-auto">
-                              <span class="badge badge-success">{{ $slider->is_active ? 'نشط' : 'غير نشط' }}</span>
-                              <button class="btn btn-sm btn-link text-muted"><span class="fe fe-trash-2"></span></button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="list-group-item bg-transparent">
-                          <div class="row align-items-center">
-                            <div class="col-auto">
-                              <div class="avatar avatar-sm bg-light text-muted d-flex align-items-center justify-content-center border rounded" style="width: 60px;">
-                                <span class="fe fe-image"></span>
-                              </div>
-                            </div>
-                            <div class="col">
-                              <small><strong>شحن مجاني للطلبات فوق 500</strong></small>
-                              <div class="my-0 text-muted small">المكان: تحت القائمة (Header Banner)</div>
-                            </div>
-                            <div class="col-auto">
-                              <span class="badge badge-secondary">معطل</span>
-                              <button class="btn btn-sm btn-link text-muted"><span class="fe fe-trash-2"></span></button>
+                              <span class="badge badge-success">{{ $banner->is_active ? 'نشط' : 'غير نشط' }}</span>
+                              <form action="{{ route('admin.banners.destroy', $banner->id) }}" method="POST" class="d-inline">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-sm btn-link text-muted" onclick="return confirm('هل أنت متأكد من الحذف؟')"><span class="fe fe-trash-2"></span></button>
+                              </form>
+                              <a href="{{ route('admin.banners.edit', $banner->id) }}" class="btn btn-sm btn-link text-primary">
+    <span class="fe fe-edit"></span>
+</a>
                             </div>
                           </div>
                         </div>
@@ -201,43 +187,51 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+                <form action="{{ route('admin.banners.store') }}" method="POST" enctype="multipart/form-data">
+                  @csrf
                   <div class="form-group mb-3">
                     <label for="bannerImage">صورة البنر</label>
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="bannerImage">
+                      <input type="file" name="image" class="custom-file-input" id="bannerImage" required>
                       <label class="custom-file-label" for="bannerImage">اختر صورة...</label>
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="bannerTitle">عنوان البنر</label>
+                    <input type="text" name="title" class="form-control" id="bannerTitle" placeholder="العنوان...">
+                  </div>
+                  <div class="form-group">
                     <label for="bannerLocation">مكان العرض المتوقع</label>
-                    <select class="form-control" id="bannerLocation">
-                      <option>أعلى الصفحة (تحت القائمة)</option>
-                      <option>بين الأقسام الرئيسية في الصفحة الأولى</option>
-                      <option>قبل الفوتر (نهاية الموقع)</option>
-                      <option>شريط جانبي في صفحات المنتجات</option>
+                    <select name="location" class="form-control" id="bannerLocation" required>
+                      <option value="header">أعلى الصفحة (تحت القائمة)</option>
+                      <option value="middle">بين الأقسام الرئيسية في الصفحة الأولى</option>
+                      <option value="footer">قبل الفوتر (نهاية الموقع)</option>
+                      <option value="sidebar">شريط جانبي في صفحات المنتجات</option>
                     </select>
                   </div>
                   <div class="form-group">
                     <label for="bannerLink">الرابط الموجه</label>
-                    <input type="url" class="form-control" id="bannerLink" placeholder="https://example.com/...">
+                    <input type="url" name="link" class="form-control" id="bannerLink" placeholder="https://example.com/...">
                   </div>
                   <div class="form-row">
                     <div class="col-md-6 form-group">
                       <label for="bannerStart">تاريخ بدء العرض</label>
-                      <input type="date" class="form-control" id="bannerStart">
+                      <input type="date" name="start_date" class="form-control" id="bannerStart">
                     </div>
                     <div class="col-md-6 form-group">
                       <label for="bannerEnd">تاريخ الإنتهاء الإفتراضي</label>
-                      <input type="date" class="form-control" id="bannerEnd">
+                      <input type="date" name="end_date" class="form-control" id="bannerEnd">
                     </div>
                   </div>
+                  <div class="custom-control custom-switch mb-3">
+                    <input type="checkbox" name="is_active" class="custom-control-input" id="bannerActive" checked>
+                    <label class="custom-control-label" for="bannerActive">تفعيل فوري</label>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">حفظ البنر</button>
+                  </div>
                 </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
-                <button type="button" class="btn btn-primary">حفظ البنر</button>
-              </div>
             </div>
           </div>
         </div>
