@@ -9,6 +9,12 @@ use App\Models\Banner;
 
 class BannerController extends Controller
 {
+        public function index()
+    {
+        $banners = Banner::with('images')->get();
+        return view('admin.banners.index', compact('banners'));
+        // List discounts
+    }
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -34,7 +40,32 @@ class BannerController extends Controller
     public function edit($id)
 {
     $banner = Banner::findOrFail($id);
-    return view('admin.sliders.edit', compact('banner'));
+    return view('admin.banners.edit', compact('banner'));
+}
+public function update(Request $request, $id)
+{
+    $banner = Banner::findOrFail($id);
+
+    $data = $request->validate([
+        'title' => 'nullable|string|max:255',
+        'link' => 'nullable|string',
+        'image' => 'nullable|image|max:2048'
+    ]);
+
+    $data['is_active'] = $request->boolean('is_active');
+
+    $banner->update($data);
+
+    if ($request->hasFile('image')) {
+        $imageName = MediaHandler::upload($request->image, 'banner');
+
+        $banner->images()->create([
+            'path' => $imageName
+        ]);
+    }
+
+    return redirect()->route('admin.banner.index')
+        ->with('success', 'تم التعديل بنجاح');
 }
 
     public function destroy($id)

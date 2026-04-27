@@ -6,6 +6,9 @@
 <div class="hidden md:flex items-center gap-8 font-['Plus_Jakarta_Sans'] font-medium text-sm tracking-wide">
     <a class="text-green-900 dark:text-white font-bold border-b-2 border-green-800 dark:border-green-200 pb-1 hover:scale-105 transition-transform duration-300" href="{{ route('front.home.index') }}">Home</a>
 <a class="text-stone-600 dark:text-stone-400 hover:text-green-800 dark:hover:text-green-200 transition-colors hover:scale-105 transition-transform duration-300" href="{{ route('shop') }}">Shop</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-green-800 dark:hover:text-green-200 transition-colors hover:scale-105 transition-transform duration-300" href="{{ route('offers') }}">Offers</a>
+
+<a class="text-stone-600 dark:text-stone-400 hover:text-green-800 dark:hover:text-green-200 transition-colors hover:scale-105 transition-transform duration-300" href="{{ route('contact.index') }}">ContactUs</a>
 
 @auth
 <a class="text-stone-600 dark:text-stone-400 hover:text-green-800 dark:hover:text-green-200 transition-colors hover:scale-105 transition-transform duration-300" href="{{ route('orders.index') }}"> My Orders</a>
@@ -58,62 +61,38 @@
     @csrf
             <input type="email" name="email" placeholder="Email"
                 class="w-full mb-3 p-2 border rounded-lg" />
-                            @error('email')
-            <small class="text-red-500">{{ $message }}</small>
-            @enderror
+                @error('email', 'login')
+<small class="text-red-500">{{ $message }}</small>
+@enderror
 
             <input type="password" name="password" placeholder="Password"
                 class="w-full mb-4 p-2 border rounded-lg" />
-            @error('password')
-            <small class="text-red-500">{{ $message }}</small>
-            @enderror
+                @error('password', 'login')
+                <small class="text-red-500">{{ $message }}</small>
+                @enderror
             <button class="w-full bg-green-700 text-white py-2 rounded-lg">
                 Login
             </button>
         </form>
         <p class="text-sm text-center mt-3">
     Don't have an account?
-    <span id="goToRegister" class="text-green-700 cursor-pointer">Register</span>
+    <a href="{{ route('register.form') }}" class="text-green-700 cursor-pointer">Register</a>
 </p>
 
 
     </div>
 </div>
 
-<div id="registerModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
-    <div class="bg-white p-6 rounded-2xl w-[350px] shadow-lg relative">
-
-        <button id="closeRegisterModal" class="absolute top-3 right-3">✕</button>
-
-        <h2 class="text-xl font-bold mb-4 text-center">Create Account</h2>
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            <input type="text" name="name" placeholder="Name" class="w-full mb-3 p-2 border rounded-lg" />
-            @error('name')
-            <small class="text-red-500">{{ $message }}</small>
-            @enderror
-            <input type="email"  name="email"  placeholder="Email" class="w-full mb-3 p-2 border rounded-lg" />
-            @error('email')
-            <small class="text-red-500">{{ $message }}</small>
-            @enderror
-            <input type="password"  name="password" placeholder="Password" class="w-full mb-4 p-2 border rounded-lg" />
-            @error('password')
-            <small class="text-red-500">{{ $message }}</small>
-            @enderror
-            <button class="w-full bg-green-700 text-white py-2 rounded-lg">
-                Register
-            </button>
-        </form>
-
-
-        <p class="text-sm text-center mt-3">
-            Already have an account?
-            <span id="goToLogin" class="text-green-700 cursor-pointer">Login</span>
-        </p>
-
-    </div>
-</div>
-
+<
 <main class="pt-32 px-6 max-w-7xl mx-auto">
+
+
+@if ($errors->login->any())
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('loginModal').classList.remove('hidden');
+        document.getElementById('loginModal').classList.add('flex');
+    });
+</script>
+@endif
 

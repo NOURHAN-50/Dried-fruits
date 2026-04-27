@@ -157,15 +157,11 @@
                     <div class="bg-surface-container-lowest rounded-xl p-6 editorial-shadow group flex flex-col justify-between">
                         <a href="{{ route('front.products.show', $product->id) }}">
                             <div class="aspect-square rounded-lg overflow-hidden mb-6 relative">
-@if(!$product->isInStock())
-    <button disabled class="absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-[80%] bg-red-500 text-white py-3 rounded-full font-bold text-sm shadow-xl cursor-not-allowed">
-        Out of Stock
-    </button>
-@else
-    <button class="add-to-cart-btn absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-[80%] editorial-gradient text-on-primary py-3 rounded-full font-bold text-sm shadow-xl" data-id="{{ $product->id }}">
-        Add to Cart
-    </button>
-@endif
+                                @if(!$product->isInStock())
+                                    <div class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest z-10">
+                                        Out of Stock
+                                    </div>
+                                @endif
                                 @if($product->images->count() > 0)
                                 <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="{{ asset('storage/products/'.$product->images->first()->path) }}" alt="{{ $product->name }}" />
                                 @else

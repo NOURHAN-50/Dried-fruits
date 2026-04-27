@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserAuthController extends Controller
 {
+    
 
 
 public function register(RegisterUserRequest $request)
@@ -27,16 +29,18 @@ public function register(RegisterUserRequest $request)
 
 return redirect('/')->with('success', 'Account created successfully!');
 }
-    public function login(LoginUserRequest $request)
 
+public function login(LoginUserRequest $request)
 {
     $credentials = $request->only('email','password');
 
     if (Auth::attempt($credentials)) {
+        return redirect('/')->with('success', 'Logged in successfully!');
+    }
 
-return redirect('/')->with('success', 'Logged in successfully!');    }
-
-    return back()->with('error','Invalid credentials');
+    return back()->withErrors([
+        'email' => 'Invalid email or password'
+    ], 'login')->withInput();
 }
 
 

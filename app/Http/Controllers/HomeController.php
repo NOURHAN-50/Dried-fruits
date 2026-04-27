@@ -31,5 +31,16 @@ class HomeController extends Controller
 
     return view('front.home.index', compact('categories',  'newProducts','reviews', 'sliders', 'banners'));
 }
+public function offers()
+{
+    $offers = Product::with(['images', 'discounts'])
+        ->whereHas('discounts', function ($q) {
+            $q->where('active', 1);
+        })
+        ->latest()
+        ->get();
+
+    return view('front.home.offers', compact('offers'));
+}
 
 }

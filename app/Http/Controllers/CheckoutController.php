@@ -131,7 +131,7 @@ public function placeOrder(PlaceOrderRequest $request)
 
 
         $order = Order::create([
-            'customer_id' => auth()->id(),
+            'customer_id' => auth()->check() ? auth()->id() : null,
             'customer_name' => $request->customer_name,
             'phone' => $request->phone,
             'address' => $request->address,
@@ -146,12 +146,21 @@ public function placeOrder(PlaceOrderRequest $request)
         ]);
 
 
-        $paymentMethod = $request->payment_method === 'online' ? 'instapay' : 'cash_on_delivery';
-        $order->payment()->create([
-            'amount' => max(0, $total),
-            'payment_method' => $paymentMethod,
-            'status' => 'pending',
-        ]);
+$paymentMethod = $request->payment_method;
+
+$paymentMethod = match ($request->payment_method) {
+    'cod' => 'cash_on_delivery',
+    'instapay' => 'bank_transfer',
+    'online' => 'credit_card',
+    default => throw new \Exception("Invalid payment method"),
+};
+$order->payment()->create([
+    'amount' => max(0, $total),
+    'payment_method' => $paymentMethod,
+    'status' => $paymentMethod === 'cod'
+    ? 'pending'
+    : ($paymentMethod === 'instapay' ? 'waiting_confirmation' : 'waiting_payment'),
+]);
 
 
         foreach ($cart as $item) {
@@ -176,12 +185,16 @@ public function placeOrder(PlaceOrderRequest $request)
         session()->forget('cart');
 
 return redirect()->route('order.success', $order->id);
-   } catch (\Exception $e) {
+   }catch (\Exception $e) {
 
-        DB::rollBack();
-
-        return back()->with('error', $e->getMessage());
+    DB::rollBack();
+    dd([
+        'message' => $e->getMessage(),
+        'line' => $e->getLine(),
+        'file' => $e->getFile(),
+    ]);
+}
     }
 }
     //
-}
+

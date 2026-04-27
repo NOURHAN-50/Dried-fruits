@@ -5,6 +5,15 @@
 
     <!-- Left Column: Cart & Details -->
     <div class="lg:col-span-7 space-y-12">
+        @if ($errors->any())
+    <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <form action="{{ route('checkout.placeOrder') }}" method="POST">
         @csrf
     <!-- Section 2: Shipping Information -->
@@ -15,21 +24,21 @@
     <div class="col-span-2">
     <input name="customer_name" class="w-full bg-surface-container border-none p-4 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" placeholder="Full Name" type="text"/>
     </div>
-    @error('customer_name')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+
     <div class="col-span-2">
-    <input name="phone" type="text" required  class="w-full bg-surface-container border-none p-4 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" placeholder="phon number">
+    <input name="phone"
+         type="tel"
+    pattern="[0-9]+"
+    inputmode="numeric"
+    required
+    placeholder="Phone Number"
+    class="w-full bg-surface-container border-none p-4 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400">
     </div>
-    @error('phone')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+
     <div class="col-span-2">
     <input name="address" class="w-full bg-surface-container border-none p-4 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" placeholder="Street Address" type="text"/>
     </div>
-    @error('address')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+
     <div class="col-span-2">
 
         <select  id="shipping_zone"  name="shipping_zone_id" class="w-full bg-surface-container border-none p-4 focus:ring-2 focus:ring-primary/40 text-on-surface placeholder:text-stone-400" required>
@@ -41,37 +50,48 @@
         @endforeach
     </select>
     </div>
-    @error('shipping_zone_id')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+
 
 
     </div>
     </section>
     <!-- Section 3: Payment Options -->
-    <section class="space-y-6">
-    <h2 class="text-2xl font-bold text-on-surface tracking-tight">Payment Method</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <label class="relative flex items-center p-6 bg-surface-container rounded-lg cursor-pointer border-2 border-transparent has-[:checked]:border-primary transition-all">
+   <section class="space-y-6">
 
-    <input  class="material-symbols-outlined  font-bold text-on-surface  text-primary text-3xl mr-4" data-icon="payments"  type="radio" name="payment_method" value="cod" checked>
-        Cash on Delivery
-    <div>
-    </div>
-    </label>
-    <label class="relative flex items-center p-6 bg-surface-container rounded-lg cursor-pointer border-2 border-transparent has-[:checked]:border-primary transition-all">
-    <input type="radio" name="payment_method" value="online">
-    <span class="material-symbols-outlined text-stone-500 text-3xl mr-4" data-icon="credit_card">credit_card</span>
-    <div>
-    <p class="font-bold text-on-surface">Online Payment</p>
+    <h2 class="text-2xl font-bold text-on-surface tracking-tight">
+        Payment Method
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        {{-- COD --}}
+        <label class="relative flex items-center p-6 bg-surface-container rounded-lg cursor-pointer border-2 border-transparent has-[:checked]:border-primary transition-all">
+            <input type="radio" name="payment_method" value="cod" checked onclick="showPayment(this.value)">
+            <span class="material-symbols-outlined text-primary text-3xl mr-4">payments</span>
+
+            <div>
+                <p class="font-bold text-on-surface">Cash on Delivery</p>
+            </div>
+        </label>
+
+        {{-- INSTA PAY --}}
+        <label class="relative flex items-center p-6 bg-surface-container rounded-lg cursor-pointer border-2 border-transparent has-[:checked]:border-primary transition-all">
+            <input type="radio" name="payment_method" value="instapay" onclick="showPayment(this.value)">
+            <span class="material-symbols-outlined text-pink-500 text-3xl mr-4">account_balance_wallet</span>
+
+            <div>
+                <p class="font-bold text-on-surface">Instapay</p>
+            </div>
+        </label>
 
     </div>
-    </label>
-    </div>
-    @error('payment_method')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-    </section>
+
+
+
+    {{-- 🔥 DYNAMIC AREA --}}
+    <div id="payment-box" class="mt-6"></div>
+
+</section>
     </div>
     <!-- Right Column: Order Summary (Sticky) -->
     <div class="lg:col-span-5 lg:sticky lg:top-12">
@@ -191,5 +211,48 @@
             });
         });
     </script>
+    <script>
+function showPayment(type) {
+    let box = document.getElementById('payment-box');
+
+    if (type === 'cod') {
+        box.innerHTML = `
+            <div class="p-5 bg-gray-100 rounded-lg">
+                <p class="font-semibold">💵 Cash on Delivery</p>
+                <p class="text-sm text-gray-600">You will pay when the order is delivered.</p>
+            </div>
+        `;
+    }
+
+    if (type === 'online') {
+        box.innerHTML = `
+            <div class="p-5 bg-blue-50 rounded-lg">
+                <p class="font-semibold">💳 Online Payment</p>
+                <p class="text-sm text-gray-600">You will be redirected to payment gateway.</p>
+            </div>
+        `;
+    }
+
+if (type === 'instapay') {
+    box.innerHTML = `
+        <div class="p-5 bg-pink-50 rounded-lg space-y-3 text-right">
+            <p class="font-semibold text-lg">📱 InstaPay Payment</p>
+
+            <p class="text-sm">حوّلي المبلغ على الرقم:</p>
+
+            <a href="https://wa.me/201143180001"
+               target="_blank"
+               class="block font-bold text-lg text-green-600 underline">
+               01143180001
+            </a>
+
+            <p class="text-xs text-gray-600">
+                بعد التحويل ابعتي سكرين شوت على واتساب لتأكيد الطلب يدويًا
+            </p>
+        </div>
+    `;
+}
+}
+</script>
 
     @endsection

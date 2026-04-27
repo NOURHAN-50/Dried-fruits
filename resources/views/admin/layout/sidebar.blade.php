@@ -85,7 +85,13 @@
             <li class="nav-item w-100">
               <a class="nav-link" href="{{ route('admin.sliders.index') }}">
                 <i class="fe fe-image fe-16"></i>
-                <span class="ml-3 item-text">البنرات والسلايدر</span>
+                <span class="ml-3 item-text"> السلايدر</span>
+              </a>
+            </li>
+                        <li class="nav-item w-100">
+              <a class="nav-link" href="{{ route('admin.banner.index') }}">
+                <i class="fe fe-image fe-16"></i>
+                <span class="ml-3 item-text"> البنرات</span>
               </a>
             </li>
           </ul>

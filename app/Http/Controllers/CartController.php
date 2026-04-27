@@ -50,6 +50,16 @@ $stock = $variation?->stock ?? $product->stock;
     }
 
     $data = $product->getFinalData($request->variation_id);
+    $price = $data['price'];
+$discount = $product->discounts->where('active', 1)->first();
+
+if ($discount) {
+    if ($discount->type == 'percentage') {
+        $price -= ($price * $discount->value / 100);
+    } else {
+        $price -= $discount->value;
+    }
+}
 
     $key = $product->id . '-' . ($variation->id ?? 0);
 
@@ -62,7 +72,7 @@ $stock = $variation?->stock ?? $product->stock;
             'product_id' => $product->id,
             'variation_id' => $variation?->id,
             'name' => $product->name,
-            'price' => $data['price'],
+            'price' => $price,
             'stock' => $data['stock'],
             'image' => $data['images'][0] ?? optional($product->images->first())->path,
             'quantity' => 1,

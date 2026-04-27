@@ -77,16 +77,16 @@
                 </p>
 </div>
 <div>
-<h5 class="font-bold mb-6 uppercase tracking-widest text-[10px]">Explore</h5>
+<h5 class="font-bold mb-6 uppercase tracking-widest text-[10px]">Quick Links</h5>
 <ul class="space-y-4">
-<li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="#">Our Story</a></li>
-<li><a class="font-semibold text-green-800 dark:text-green-200" href="#">Shop All</a></li>
-<li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="#">Wholesale</a></li>
-<li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="#">Sustainability</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="{{ route('front.home.index')}}">Home</a></li>
+<li><a class="font-semibold text-green-800 dark:text-green-200" href="{{ route('shop') }}">Shop All</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="{{ route('contact.index') }}">Contact us</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="#">Who are we</a></li>
 </ul>
 </div>
 <div>
-<h5 class="font-bold mb-6 uppercase tracking-widest text-[10px]">Support</h5>
+<h5 class="font-bold mb-6 uppercase tracking-widest text-[10px]">Categories</h5>
 <ul class="space-y-4">
 <li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="#">Shipping Policy</a></li>
 <li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="#">Terms of Service</a></li>
@@ -97,7 +97,8 @@
 <div>
 <h5 class="font-bold mb-6 uppercase tracking-widest text-[10px]">Connect</h5>
 <ul class="space-y-4">
-<li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="#">Instagram</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="">Instagram</a></li>
+<li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="https://wa.me/201143180001">01143180001</a></li>
 <li><a class="text-stone-500 dark:text-stone-400 hover:text-green-700 dark:hover:text-green-300 transition-colors" href="#">LinkedIn</a></li>
 </ul>
 </div>
