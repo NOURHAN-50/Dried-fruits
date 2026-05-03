@@ -16,7 +16,7 @@ trait MediaHandler{
 
         $vidName = rand(1,100000). now()->format('YmdHis') .$originalName;
         $fileValidated->storeAs($path, $vidName, 'public');
-        return $vidName;
+        return $path . '/' . $vidName;
     }
 
     public static function updateMedia($media,$path,$storagePath)

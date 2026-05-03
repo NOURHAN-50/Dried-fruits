@@ -23,16 +23,14 @@ class LoginUserRequest extends FormRequest
     public function rules(): array
     {
          return [
-            'email' => 'required|email',
-            'password' => 'required',
+  'login' => 'required|string',
+              'password' => 'required',
         ];
     }
     public function messages(): array
     {
         return [
-        'email.required' => 'Email is required',
-        'email.email' => 'Please enter a valid email',
-        'email.unique' => 'This email is already taken',
+        'login.required' => 'Email or phone is required',
         'password.required' => 'Password is required',
         'password.min' => 'Password must be at least 6 characters',
         ];

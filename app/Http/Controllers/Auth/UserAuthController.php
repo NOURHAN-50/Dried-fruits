@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserAuthController extends Controller
 {
-    
+
 
 
 public function register(RegisterUserRequest $request)
@@ -22,6 +22,7 @@ public function register(RegisterUserRequest $request)
     $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
+        'phone' => $request->phone,
         'password' => Hash::make($request->password),
     ]);
 
@@ -32,14 +33,22 @@ return redirect('/')->with('success', 'Account created successfully!');
 
 public function login(LoginUserRequest $request)
 {
-    $credentials = $request->only('email','password');
+    $login = $request->login;
 
-    if (Auth::attempt($credentials)) {
+    $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+
+    if (Auth::attempt([
+        $field => $login,
+        'password' => $request->password
+    ])) {
+
+        $request->session()->regenerate();
+
         return redirect('/')->with('success', 'Logged in successfully!');
     }
 
     return back()->withErrors([
-        'email' => 'Invalid email or password'
+        'login' => 'Invalid email/phone or password'
     ], 'login')->withInput();
 }
 

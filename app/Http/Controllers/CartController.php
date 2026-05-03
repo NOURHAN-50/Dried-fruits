@@ -29,7 +29,6 @@ public function add(Request $request, $id)
 
     $variation = null;
 
-    // 🎯 لو فيه variation مختار
     if ($request->variation_id) {
         $variation = Variation::findOrFail($request->variation_id);
 $stock = $variation?->stock ?? $product->stock;
@@ -41,7 +40,6 @@ $stock = $variation?->stock ?? $product->stock;
         }
     }
 
-    // ❌ لو المنتج له variations لازم يختار
     if (!$request->variation_id && $product->variations->count() > 0) {
         return response()->json([
             'status' => false,
@@ -102,10 +100,11 @@ public function update(Request $request)
         $subtotal += $item['price'] * $item['quantity'];
     }
 
-    $shipping = 5;
-    $discount = 2;
+    $shipping = 0;
+    $discount = 0;
 
-    $total = $subtotal + $shipping - $discount;
+
+$total = $subtotal;
 
     return response()->json([
         'subtotal' => $subtotal,

@@ -83,8 +83,7 @@
     </div>
 </div>
 
-<
-<main class="pt-32 px-6 max-w-7xl mx-auto">
+<main class="pt-16 px-6 max-w-7xl mx-auto">
 
 
 @if ($errors->login->any())

@@ -41,9 +41,8 @@
 
 @if($image)
     <img
-        src="{{ asset('storage/products/' . $image->path) }}"
-        width="50"
-    >
+        src=" {{ asset('storage/' . $image->path) }} "
+        width="50">
 @else
     <span>لا توجد صورة</span>
 @endif

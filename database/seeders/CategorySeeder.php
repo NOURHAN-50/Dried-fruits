@@ -11,29 +11,28 @@ class CategorySeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+      public function run(): void
     {
-        Category::updateOrCreate([
-            'name' => 'Nuts',
-            'slug' => 'nuts',
-        ]);
-        Category::updateOrCreate([
-            'name' => 'Dried Fruits',
-            'slug' => 'dried-fruits',
-        ]);
-        Category::updateOrCreate    ([
-            'name' => 'Seeds',
-            'slug' => 'seeds',
-        ]);
-        Category::updateOrCreate([
-            'name' => 'Mixes',
-            'slug' => 'mixes',
-        ]);
-        Category::updateOrCreate([
-            'name' => 'Organic',
-            'slug' => 'organic',
-        ]);
+        $categories = [
+            ['name' => 'Nuts', 'slug' => 'nuts', 'image' => 'categories/nuts.jpg'],
+            ['name' => 'Dried Fruits', 'slug' => 'dried-fruits', 'image' => 'categories/dried-fruitss.jpg'],
+            ['name' => 'Seeds', 'slug' => 'seeds', 'image' => 'categories/seeds.jpg'],
+            ['name' => 'Mixes', 'slug' => 'mixes', 'image' => 'categories/mixes.jpg'],
+            ['name' => 'Organic', 'slug' => 'organic', 'image' => 'categories/organic.jpg'],
+        ];
 
-        //
+        foreach ($categories as $c) {
+
+            $category = Category::updateOrCreate(
+                ['slug' => $c['slug']],
+                ['name' => $c['name']]
+            );
+
+            $category->images()->create([
+                'path' => $c['image'],
+                'is_main' => true,
+            ]);
+        }
+
     }
 }

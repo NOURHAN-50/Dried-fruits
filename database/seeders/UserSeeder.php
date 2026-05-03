@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
     ['email' => 'admin@example.com'],
     [
         'name' => 'Admin User',
+        'phone' => '01151513447',
         'password' => Hash::make('123456789'),
         'role' => 'admin',
     ]
@@ -29,6 +30,7 @@ User::updateOrCreate(
     ['email' => 'omar@example.com'],
     [
         'name' => 'Omar User',
+        'phone'=> '01151513448',
         'password' => Hash::make('password'),
         'role' => 'user',
     ]

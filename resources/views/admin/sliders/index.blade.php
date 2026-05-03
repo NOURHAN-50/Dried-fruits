@@ -32,7 +32,7 @@
                           <div class="row align-items-center">
                             <div class="col-auto">
     @if($slider->images->first())
-        <img src="{{ asset('storage/sliders/' . $slider->images->first()->path) }}" alt="{{ $slider->title }}" width="50">
+        <img src="{{ asset('storage/' . $slider->images->first()->path) }}" alt="{{ $slider->title }}" width="50">
     @else
         <span>لا توجد صورة</span>
     @endif
@@ -80,7 +80,7 @@
                           <div class="row align-items-center">
                             <div class="col-auto">
                               @if($banner->images->first())
-                                  <img src="{{ asset('storage/banners/' . $banner->images->first()->path) }}" alt="{{ $banner->title }}" width="50">
+                                  <img src="{{ asset('storage/' . $banner->images->first()->path) }}" alt="{{ $banner->title }}" width="50">
                               @else
                                   <div class="avatar avatar-sm bg-light text-muted d-flex align-items-center justify-content-center border rounded" style="width: 60px;">
                                     <span class="fe fe-image"></span>

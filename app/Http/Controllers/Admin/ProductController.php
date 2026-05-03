@@ -29,6 +29,7 @@ class ProductController extends Controller
         public function edit($id)
         {
             $product = Product::with('category', 'images', 'variations')->findOrFail($id);
+            
             $categories = Category::all();
             return view('admin.products.edit', compact('product', 'categories'));
         }
@@ -127,7 +128,7 @@ if ($request->hasFile('main_image')) {
     $oldMain = $product->images()->where('is_main', 1)->first();
 
     if ($oldMain) {
-        \Storage::delete('products/' . $oldMain->path);
+        MediaHandler::deleteMedia($oldMain->path);
         $oldMain->delete();
     }
 
@@ -178,7 +179,7 @@ if ($request->has('weight')) {
             $imageName = MediaHandler::upload($image, 'products');
 
                foreach ($variation->images as $oldImage) {
-        \Storage::disk('public')->delete('products/' . $oldImage->path);
+        MediaHandler::deleteMedia($oldImage->path);
         $oldImage->delete();
     }
             $variation->images()->create([
@@ -197,7 +198,12 @@ if ($request->has('weight')) {
         public function destroy($id)
         {
             $product = Product::findOrFail($id);
-            MediaHandler::deleteMedia($product->image);
+            if ($product->images) {
+                foreach ($product->images as $image) {
+                    MediaHandler::deleteMedia($image->path);
+                    $image->delete();
+                }
+            }
             $product->delete();
             return redirect()->route('admin.products.index')
             ->with('success', 'تم حذف المنتج بنجاح ✅');

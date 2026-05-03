@@ -51,7 +51,7 @@
 
             @if($image)
                 <a href="{{ route('front.products.show', $product->id) }}">
-                    <img src="{{ asset('storage/products/' . $image->path) }}"
+                    <img src="{{ asset('storage/' . $image->path) }}"
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 </a>
             @endif

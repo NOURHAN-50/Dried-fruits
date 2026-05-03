@@ -16,8 +16,7 @@
 
         <!-- Hero Section (Sliders) -->
         @if(isset($sliders) && $sliders->count() > 0)
-            <section class="pt-32 pb-20 px-6 max-w-7xl mx-auto overflow-hidden relative" id="hero-carousel">
-                <div class="carousel-inner relative w-full overflow-hidden" style="min-height: 600px;">
+<section class="pt-0 pb-12 px-6 max-w-7xl mx-auto overflow-hidden relative" id="hero-carousel">                    <div class="carousel-inner relative w-full overflow-hidden" style="min-height: 600px;">
                     @foreach($sliders as $index => $slider)
                     <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 ease-in-out {{ $index == 0 ? 'opacity-100 z-10' : 'opacity-0 z-0' }}" data-index="{{ $index }}">
                         <div class="relative flex flex-col md:flex-row items-center gap-16 h-full">
@@ -42,7 +41,7 @@
                                 <div class="absolute -top-10 -right-10 w-64 h-64 bg-primary-fixed rounded-full blur-[100px] opacity-40"></div>
                                 <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden editorial-shadow transform md:rotate-2">
                                     @if($slider->images->first())
-                                    <img class="w-full h-full object-cover" src="{{ asset('storage/sliders/' . $slider->images->first()->path) }}" alt="{{ $slider->title }}" />
+                                    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $slider->images->first()->path) }}" alt="{{ $slider->title }}" />
                                     @else
                                     <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKimCR7GHSLgxORTvjaj7l9GK1UiyGdwlrHf0P618HW7-61pbSuVNEMNCOpSXTvvDo1fGOcJBjlkFDIXBBe9KiB140a20eyEvO1ylzQhiXTMwmASyzzgxhkvBG2KsYqmy7aJLUrsdmM9s1HyBwNnDG_Ohh-wtX2pEMKzu7vaWjOP0pzDk14cu0Ly8Xek82YI0UdZJqAxnXD-oZSICQGrXot1Jj60nFnnIZ5L9XYlrfGaFkSkRGJfYx2EHUNApvAvVmpc663h1qblUh" />
                                     @endif
@@ -142,7 +141,7 @@
             <div class="max-w-7xl mx-auto">
                 <div class="flex justify-between items-end mb-16">
                     <div>
-                        <h2 class="font-headline text-4xl font-bold tracking-tight mb-4">Featured Harvest</h2>
+                        <h2 class="font-headline text-4xl font-bold tracking-tight mb-4">New product</h2>
                         <p class="text-on-surface-variant max-w-md">Our curated selection of seasonal favorites, picked
                             at peak ripeness and naturally dried.</p>
                     </div>
@@ -163,7 +162,7 @@
                                     </div>
                                 @endif
                                 @if($product->images->count() > 0)
-                                <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="{{ asset('storage/products/'.$product->images->first()->path) }}" alt="{{ $product->name }}" />
+                                <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="{{asset('storage/' . $product->images->first()?->path) }}" alt="{{ $product->name }}" />
                                 @else
                                 <div class="w-full h-full bg-surface-variant flex items-center justify-center">
                                     <span class="text-on-surface-variant text-sm">No Image</span>
@@ -181,6 +180,53 @@
                 </div>
             </div>
         </section>
+        <section class="py-24 px-6 max-w-7xl mx-auto">
+    <h2 class="font-headline text-4xl font-bold mb-12">Latest Products</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        @foreach($latestProducts as $product)
+        <div class="bg-surface-container-lowest rounded-xl p-6 editorial-shadow group">
+            <a href="{{ route('front.products.show', $product->id) }}">
+
+                <div class="aspect-square overflow-hidden rounded-lg mb-4">
+                    <img src="{{ asset('storage/' . $product->images->first()?->path) }}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition">
+                </div>
+
+                <h3 class="font-bold text-lg">{{ $product->name }}</h3>
+                <p class="text-primary font-bold mt-2">{{ $product->price }} جنيه</p>
+
+            </a>
+        </div>
+        @endforeach
+    </div>
+</section>
+<section class="py-24 px-6 max-w-7xl mx-auto bg-surface-container-low">
+    <h2 class="font-headline text-4xl font-bold mb-12 text-center">Best Selling Products</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        @foreach($bestSellingProducts as $product)
+        <div class="bg-white rounded-xl p-6 editorial-shadow group border border-surface-variant">
+
+            <a href="{{ route('front.products.show', $product->id) }}">
+
+                <div class="aspect-square overflow-hidden rounded-lg mb-4 relative">
+                    <img src="{{ asset('storage/' . $product->images->first()?->path) }}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition">
+
+                    <span class="absolute top-3 left-3 bg-primary text-white text-xs px-3 py-1 rounded-full">
+                        Best Seller
+                    </span>
+                </div>
+
+                <h3 class="font-bold text-lg">{{ $product->name }}</h3>
+                <p class="text-primary font-bold mt-2">{{ $product->price }} جنيه</p>
+
+            </a>
+        </div>
+        @endforeach
+    </div>
+</section>
         <!-- Middle Banners -->
         @if(isset($banners))
             @foreach($banners->where('location', 'middle') as $banner)
@@ -188,7 +234,7 @@
                     <div class="max-w-7xl mx-auto px-6">
                         <a href="{{ $banner->link ?? '#' }}" class="block w-full rounded-xl overflow-hidden shadow-lg">
                             @if($banner->images->first())
-                                <img src="{{ asset('storage/banners/' . $banner->images->first()->path) }}" alt="{{ $banner->title }}" class="w-full object-cover max-h-48">
+                                <img src="{{ asset('storage/' . $banner->images->first()->path) }}" alt="{{ $banner->title }}" class="w-full object-cover max-h-48">
                             @endif
                         </a>
                     </div>
@@ -205,7 +251,7 @@
                     <div
                         class="aspect-square rounded-xl overflow-hidden mb-6 bg-surface-container-low transition-transform duration-500 group-hover:-translate-y-2 relative">
                         @if($category->images && $category->images->count() > 0)
-                        <img class="w-full h-full object-cover" src="{{ asset('storage/categories/'.$category->images->first()->path) }}" alt="{{ $category->name }}" />
+                        <img class="w-full h-full object-cover" src="{{ asset('storage/'.$category->images->first()->path) }}" alt="{{ $category->name }}" />
                         @else
                         <div class="w-full h-full bg-surface-variant flex items-center justify-center">
                             <span class="text-on-surface-variant text-sm">No Image</span>
@@ -225,7 +271,7 @@
                     <div class="max-w-7xl mx-auto px-6">
                         <a href="{{ $banner->link ?? '#' }}" class="block w-full rounded-xl overflow-hidden shadow-lg">
                             @if($banner->images->first())
-                                <img src="{{ asset('storage/banners/' . $banner->images->first()->path) }}" alt="{{ $banner->title }}" class="w-full object-cover max-h-48">
+                                <img src="{{ asset('storage/' . $banner->images->first()->path) }}" alt="{{ $banner->title }}" class="w-full object-cover max-h-48">
                             @endif
                         </a>
                     </div>

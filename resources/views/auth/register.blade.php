@@ -19,7 +19,11 @@
             @error('email')
                 <small class="text-red-500 block mb-2">{{ $message }}</small>
             @enderror
+            <input type="text" name="phone" placeholder="Phone" class="w-full mb-3 p-2 border rounded-lg"/>
 
+            @error('phone')
+                <small class="text-red-500 block mb-2">{{ $message }}</small>
+            @enderror
             <input type="password" name="password" placeholder="Password"
                 class="w-full mb-4 p-2 border rounded-lg" />
             @error('password')

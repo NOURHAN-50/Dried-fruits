@@ -68,9 +68,11 @@
         },
       }
     </script>
-    <footer class="w-full mt-20 pt-16 pb-8 bg-stone-100 dark:bg-stone-950 font-['Manrope'] text-sm leading-relaxed text-green-900 dark:text-green-100">
-<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
-<div class="col-span-1 md:col-span-1">
+<footer class="w-full mt-20 pt-16 pb-8 bg-stone-100 dark:bg-stone-950 font-['Manrope'] text-sm leading-relaxed text-green-900 dark:text-green-100">    <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+  <div class="col-span-1 md:col-span-1">
+
+
+
 <span class="text-xl font-bold text-green-900 dark:text-green-50 mb-4 block">Oravida</span>
 <p class="text-stone-500 dark:text-stone-400 max-w-xs">
                     Rooted in the wisdom of organic farming, bringing the pure essence of the orchard to your daily ritual.

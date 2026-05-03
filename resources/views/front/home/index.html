@@ -1,325 +1,430 @@
 <!DOCTYPE html>
 
-<html lang="en"><head>
+<html dir="rtl" lang="ar"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>My Orders | Oravida Editorial</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "background": "#f9f9f9",
-                        "on-error-container": "#93000a",
-                        "on-surface-variant": "#424842",
-                        "surface": "#f9f9f9",
-                        "secondary-container": "#d4e5ca",
-                        "on-secondary-fixed": "#121f0e",
-                        "error-container": "#ffdad6",
-                        "on-surface": "#1a1c1c",
-                        "inverse-on-surface": "#f0f1f1",
-                        "outline-variant": "#c2c8bf",
-                        "on-primary-fixed-variant": "#304d35",
-                        "secondary-fixed-dim": "#bbccb1",
-                        "inverse-surface": "#2f3131",
-                        "tertiary-fixed-dim": "#e7bbc6",
-                        "on-primary-fixed": "#03210c",
-                        "primary-container": "#86a789",
-                        "on-tertiary-container": "#4b2d36",
-                        "on-tertiary": "#ffffff",
-                        "inverse-primary": "#adcfaf",
-                        "surface-bright": "#f9f9f9",
-                        "surface-container-highest": "#e2e2e2",
-                        "surface-tint": "#47664b",
-                        "tertiary-fixed": "#ffd9e2",
-                        "surface-container-low": "#f3f3f3",
-                        "on-primary": "#ffffff",
-                        "surface-container-high": "#e8e8e8",
-                        "on-secondary-fixed-variant": "#3c4b37",
-                        "tertiary-container": "#bd949e",
-                        "outline": "#737971",
-                        "on-error": "#ffffff",
-                        "surface-dim": "#dadada",
-                        "secondary": "#53634d",
-                        "on-secondary-container": "#586751",
-                        "on-background": "#1a1c1c",
-                        "secondary-fixed": "#d7e8cd",
-                        "on-secondary": "#ffffff",
-                        "on-primary-container": "#1f3c25",
-                        "error": "#ba1a1a",
-                        "surface-variant": "#e2e2e2",
-                        "surface-container-lowest": "#ffffff",
-                        "primary-fixed": "#c8ebca",
-                        "surface-container": "#eeeeee",
-                        "primary-fixed-dim": "#adcfaf",
-                        "on-tertiary-fixed": "#2d141c",
-                        "tertiary": "#78555e",
-                        "primary": "#47664b",
-                        "on-tertiary-fixed-variant": "#5e3e47"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "1rem",
-                        "lg": "2rem",
-                        "xl": "3rem",
-                        "full": "9999px"
-                    },
-                    "fontFamily": {
-                        "headline": ["Plus Jakarta Sans"],
-                        "display": ["Plus Jakarta Sans"],
-                        "body": ["Manrope"],
-                        "label": ["Manrope"]
-                    }
-                }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#2b1611",
+                    "on-surface": "#1a1c1c",
+                    "on-secondary-fixed": "#2b160f",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#d4c3bf",
+                    "on-primary-fixed-variant": "#5c403a",
+                    "surface-bright": "#f9f9f8",
+                    "inverse-surface": "#2f3130",
+                    "on-secondary-fixed-variant": "#5b4137",
+                    "on-surface-variant": "#504442",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#aca29f",
+                    "on-tertiary-fixed-variant": "#4c4542",
+                    "outline": "#827471",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f1f1f0",
+                    "inverse-primary": "#e5beb5",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#ece0dc",
+                    "on-secondary-container": "#795c51",
+                    "primary-fixed-dim": "#e5beb5",
+                    "on-tertiary-fixed": "#201a18",
+                    "tertiary-fixed-dim": "#cfc4c0",
+                    "surface-container-low": "#f4f4f3",
+                    "surface-tint": "#755750",
+                    "surface-container-high": "#e8e8e7",
+                    "secondary-fixed-dim": "#e4beb2",
+                    "secondary": "#75584d",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9f8",
+                    "primary": "#361f1a",
+                    "surface-container-highest": "#e2e2e2",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dadad9",
+                    "primary-fixed": "#ffdad2",
+                    "surface-variant": "#e2e2e2",
+                    "primary-container": "#4e342e",
+                    "tertiary": "#292421",
+                    "secondary-container": "#fed7ca",
+                    "surface-container": "#eeeeed",
+                    "secondary-fixed": "#ffdbce",
+                    "on-background": "#1a1c1c",
+                    "surface": "#f9f9f8",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#403936",
+                    "on-primary-container": "#c19c94"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "base": "8px",
+                    "xl": "64px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "lg": "40px",
+                    "gutter": "24px",
+                    "margin": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Manrope"],
+                    "display": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "h3": ["Manrope"],
+                    "h1": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "h2": ["Manrope"],
+                    "body-sm": ["Manrope"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "h2": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
             }
-        }
+          },
+        },
+      }
     </script>
 <style>
-        body { font-family: 'Manrope', sans-serif; }
-        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .tonal-transition { transition: background-color 0.3s ease; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f9f9f8;
+        }
     </style>
 </head>
-<body class="bg-background text-on-surface">
-<!-- Top Navigation Bar -->
-<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl rounded-full z-50 bg-white/80 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.04)] flex justify-between items-center px-8 py-3">
-<div class="text-2xl font-bold tracking-tighter text-[#47664b]">Oravida</div>
-<div class="hidden md:flex gap-8 items-center">
-<a class="text-stone-500 font-medium hover:text-[#86a789] transition-colors duration-300" href="#">Shop</a>
-<a class="text-stone-500 font-medium hover:text-[#86a789] transition-colors duration-300" href="#">Stories</a>
-<a class="text-[#47664b] font-semibold border-b-2 border-[#47664b] pb-1" href="#">Account</a>
+<body class="font-body-md text-on-surface antialiased bg-background">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed right-0 top-0 flex flex-col h-full z-40 w-[280px] bg-stone-100 dark:bg-stone-900 border-l border-stone-200/50 dark:border-stone-800/50 font-manrope antialiased">
+<div class="p-8 flex flex-col items-center">
+<h1 class="text-2xl font-bold text-[#4E342E] dark:text-stone-100 mb-1">اندلسيه</h1>
+<p class="text-label-sm font-label-sm text-stone-500">Stationery Boutique</p>
 </div>
-<div class="flex items-center gap-4">
-<button class="p-2 text-[#47664b] hover:scale-95 duration-200 transition-transform">
-<span class="material-symbols-outlined">shopping_bag</span>
-</button>
-<div class="w-8 h-8 rounded-full overflow-hidden border border-primary-fixed">
-<img alt="User Profile" data-alt="close-up portrait of a woman with glowing natural skin and soft daylight highlighting her features" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsRlFn65mr66kBIEe8tN7pwGEPmRrCYT0fOJZWFajx26xRhn7ZwrD9maM4CI57_4y44w1LhXs5YWaGrvQX2-Di_SEvtdltUkfEFHUg-c32GXUQgZ8t0p1G8n_iqQYrFC8LkUYU3MuCPxGGHl6SNQIw4z_JD9E0aXa4N6Nn_Yx2tfXxCfAqVzfJYMq9P4Fm96ElDNWIfZc_fkOjKXQPXWONy3fuQXs573uA24JuL4adyWbGXCUiuz3M-9vhS0M_kzqS9s4Qid6A91A-"/>
-</div>
-</div>
+<nav class="flex-1 px-4 py-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 hover:text-[#4E342E] transition-colors hover:bg-stone-200/30 dark:hover:bg-stone-800/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 hover:text-[#4E342E] transition-colors hover:bg-stone-200/30 dark:hover:bg-stone-800/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 hover:text-[#4E342E] transition-colors hover:bg-stone-200/30 dark:hover:bg-stone-800/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<!-- Active State: Categories -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#4E342E] bg-stone-200/50 dark:bg-stone-800 border-r-4 border-[#4E342E] font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="category" style="font-variation-settings: 'FILL' 1;">category</span>
+<span class="font-label-md text-label-md">Categories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 dark:text-stone-400 hover:text-[#4E342E] transition-colors hover:bg-stone-200/30 dark:hover:bg-stone-800/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
 </nav>
-<!-- Main Content Canvas -->
-<main class="pt-32 pb-20 px-4 md:px-8 max-w-5xl mx-auto min-h-screen">
-<!-- Header Section -->
-<header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
-<div>
-<span class="text-xs font-bold tracking-[0.05rem] uppercase text-primary mb-2 block">Personal Dashboard</span>
-<h1 class="text-4xl md:text-5xl font-display font-extrabold text-on-surface tracking-tight">My Orders <span class="text-primary/40 font-normal">طلباتي</span></h1>
+<div class="p-6 border-t border-stone-200/50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
 </div>
-<div class="flex gap-2">
-<span class="px-4 py-2 bg-surface-container-lowest text-stone-500 rounded-full text-sm font-medium border border-outline-variant/15">Active (2)</span>
-<span class="px-4 py-2 bg-surface-container-lowest text-stone-500 rounded-full text-sm font-medium border border-outline-variant/15">Completed (12)</span>
+<div>
+<p class="font-label-md text-label-md text-primary">Admin User</p>
+<p class="font-label-sm text-label-sm text-outline">Store Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="mr-[280px] min-h-screen flex flex-col">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center px-8 h-16 w-full bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 font-manrope text-sm font-medium">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm">search</span>
+<input class="w-full bg-stone-100 border-none rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-[#4E342E] focus:outline-none text-sm" placeholder="Search categories..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="hover:bg-stone-100 dark:hover:bg-stone-800 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-stone-100 dark:hover:bg-stone-800 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
 </div>
 </header>
-<!-- Order Cards List -->
-<div class="flex flex-col gap-8">
-<!-- Order Card 1: Processing -->
-<div class="group bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all duration-500 border border-outline-variant/10">
-<div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-surface-container">
-<div class="flex flex-col gap-1">
-<div class="flex items-center gap-3">
-<span class="text-lg font-headline font-bold text-on-surface">#ORD-8821</span>
-<span class="px-3 py-1 bg-orange-50 text-orange-600 rounded-full text-xs font-bold flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">sync</span>
-                                Processing
-                            </span>
-</div>
-<p class="text-stone-400 text-sm font-medium">Placed on October 24, 2023</p>
-</div>
-<div class="flex flex-col md:items-end">
-<span class="text-xs uppercase tracking-wider text-stone-400 font-bold mb-1">Total Amount</span>
-<span class="text-xl font-display font-extrabold text-[#47664b]">$142.00</span>
-</div>
-</div>
-<div class="p-6 md:p-8 space-y-6">
-<!-- Product Item -->
-<div class="flex items-center gap-4">
-<div class="w-20 h-20 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
-<img class="w-full h-full object-cover" data-alt="aesthetic minimalist skincare bottle on a stone surface with soft shadows and organic textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrxONF4Hm_k3-7etLoPTwWx0zCDVSorRircLyu-GkD1CuWXaMGp6GPl1346Eu6fyzT_-zNZblZs_j1aHg26aQGBkrACwENwkZqFI2fh1Hr9Zcowz9rLWZVYcakHT1JtKTpaSorUIvipgucnbrSMzCf9vmX6QGCInWARSo1hCnB-NvLBxkOZZo22gQF2KtEWS9LtXOPBbYnBy9wcx2xso4MqqYlLv1PUgnyvqLjn12_UDNDxBi1LrJFkW3lqRVtJbw3H4B9DlA0LM7Z"/>
-</div>
-<div class="flex-grow">
-<h4 class="font-bold text-on-surface leading-tight">Botanical Cleansing Balm</h4>
-<p class="text-sm text-stone-400">Qty: 1</p>
-</div>
-<div class="text-right">
-<span class="font-bold text-on-surface-variant">$48.00</span>
-</div>
-</div>
-<!-- Product Item -->
-<div class="flex items-center gap-4">
-<div class="w-20 h-20 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
-<img class="w-full h-full object-cover" data-alt="luxury rose-scented face oil dropper bottle reflecting soft pink studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLKKbk0pXLYQs3dMRvhfFZGaWEBNmgIYRg0moIVcdSTm8UCJtfy3o6CX528nZ3rSbmDCmw4-6Cw3koxs_dMMbtW6P_cBrTYaTpuLt6tfn_WhgpEhsfWQkuexnEX44ZCyByW3NCNAwA69kGzwe_KmvRAWZhaj4Ne6xzi7M5YLyb59yLIWobjehFEee4wFp8MlqcYFupvZ_AQTdTw3DJuzRmbAg-H_ENc7-dtPxx2H6uFKI37eTv7Le-pCgLyde8wdmti33v4sj39G4r"/>
-</div>
-<div class="flex-grow">
-<h4 class="font-bold text-on-surface leading-tight">Hibiscus Radiance Serum</h4>
-<p class="text-sm text-stone-400">Qty: 2</p>
-</div>
-<div class="text-right">
-<span class="font-bold text-on-surface-variant">$94.00</span>
-</div>
-</div>
-</div>
-<div class="p-6 md:p-8 bg-surface-container-low flex flex-col md:flex-row items-center justify-between gap-6">
-<div class="flex items-center gap-2 text-stone-500 text-sm">
-<span class="material-symbols-outlined text-stone-400">payments</span>
-<span>Payment: <span class="font-bold">Cash on Delivery</span></span>
-</div>
-<div class="flex gap-3 w-full md:w-auto">
-<button class="flex-1 md:flex-none px-6 py-3 rounded-full border border-stone-200 text-stone-600 font-bold text-sm hover:bg-stone-50 transition-colors">View Details</button>
-<button class="flex-1 md:flex-none px-8 py-3 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-bold text-sm shadow-xl shadow-primary/10 hover:scale-95 transition-all">Reorder</button>
-</div>
-</div>
-</div>
-<!-- Order Card 2: Shipped -->
-<div class="group bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all duration-500 border border-outline-variant/10">
-<div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-surface-container">
-<div class="flex flex-col gap-1">
-<div class="flex items-center gap-3">
-<span class="text-lg font-headline font-bold text-on-surface">#ORD-8794</span>
-<span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">local_shipping</span>
-                                Shipped
-                            </span>
-</div>
-<p class="text-stone-400 text-sm font-medium">Placed on October 18, 2023</p>
-</div>
-<div class="flex flex-col md:items-end">
-<span class="text-xs uppercase tracking-wider text-stone-400 font-bold mb-1">Total Amount</span>
-<span class="text-xl font-display font-extrabold text-[#47664b]">$65.00</span>
-</div>
-</div>
-<div class="p-6 md:p-8 space-y-6">
-<div class="flex items-center gap-4">
-<div class="w-20 h-20 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
-<img class="w-full h-full object-cover" data-alt="minimalist glass jar of white facial cream sitting on a pedestal with botanical accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGGMzNCGCC6pQ2FupAEtZUE3dO3oVmB2CLuj4GKxQBynJf4X8NYNQkNkLWH0Hz70T1NCW0oPpwYyBtyR5eK9bF4fseZO3CgEPIkMWeA3qUeSDupdMfnMhrbHRogRYkNW_GNLXH5qb5iLtQzzat3-p0ZjtbjYQPIc5sU8_K-9LIL9mICSyQ5pu8NWu2YRnER9neMa_9e_ntDCW62LHROQQs5o4JgznkcDwmrvyIQ4KWrq3iEFFUA8ndJ4LRnJLG1_HJ_reQdWTSOZ10"/>
-</div>
-<div class="flex-grow">
-<h4 class="font-bold text-on-surface leading-tight">Wild Orchid Night Cream</h4>
-<p class="text-sm text-stone-400">Qty: 1</p>
-</div>
-<div class="text-right">
-<span class="font-bold text-on-surface-variant">$65.00</span>
-</div>
-</div>
-</div>
-<div class="p-6 md:p-8 bg-surface-container-low flex flex-col md:flex-row items-center justify-between gap-6">
-<div class="flex items-center gap-2 text-stone-500 text-sm">
-<span class="material-symbols-outlined text-stone-400">credit_card</span>
-<span>Payment: <span class="font-bold">Visa ending in 4242</span></span>
-</div>
-<div class="flex gap-3 w-full md:w-auto">
-<button class="flex-1 md:flex-none px-6 py-3 rounded-full border border-stone-200 text-stone-600 font-bold text-sm hover:bg-stone-50 transition-colors">Track Shipment</button>
-<button class="flex-1 md:flex-none px-8 py-3 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-bold text-sm shadow-xl shadow-primary/10 hover:scale-95 transition-all">Reorder</button>
-</div>
-</div>
-</div>
-<!-- Order Card 3: Delivered -->
-<div class="group bg-surface-container-lowest rounded-xl overflow-hidden opacity-80 hover:opacity-100 transition-all duration-500 border border-outline-variant/10">
-<div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-surface-container">
-<div class="flex flex-col gap-1">
-<div class="flex items-center gap-3">
-<span class="text-lg font-headline font-bold text-on-surface">#ORD-8512</span>
-<span class="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-xs font-bold flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">check_circle</span>
-                                Delivered
-                            </span>
-</div>
-<p class="text-stone-400 text-sm font-medium">Placed on September 30, 2023</p>
-</div>
-<div class="flex flex-col md:items-end">
-<span class="text-xs uppercase tracking-wider text-stone-400 font-bold mb-1">Total Amount</span>
-<span class="text-xl font-display font-extrabold text-[#47664b]">$210.50</span>
-</div>
-</div>
-<div class="p-4 bg-tertiary-fixed/20 mx-8 mt-6 rounded-lg flex items-center gap-3 text-on-tertiary-fixed-variant text-sm font-medium">
-<span class="material-symbols-outlined text-tertiary">card_giftcard</span>
-<span>This order included a complementary "Matcha Glow" sample.</span>
-</div>
-<div class="p-6 md:p-8 space-y-6">
-<div class="flex items-center gap-4">
-<div class="w-20 h-20 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
-<img class="w-full h-full object-cover" data-alt="collection of organic skincare products with pastel packaging arranged asymmetrically" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_4p-Q1QRMVQ94o-1_nr_vpDbgvnbe-a7oooMKZXt1CeoaGC3aVopuRGSslQ0l1FfvXNPJkBG6r-kgBS1BZOBFr0HB4MQ7DLYnwLf1OiGAVbpzMutn6YNWWSrn3SrOut3pU7_WZjxMQ5_fMKSQOoARgHnxB7xPLpvUuV_VzS09nYM4E9xnyDQPFcRvmFa0tkagK9APaOcX9OOISaB5-WFK-2AO6DChZubip52V6xV9SBHr215cd5zdepwXDKMPi79XfhA_BJbHUymm"/>
-</div>
-<div class="flex-grow">
-<h4 class="font-bold text-on-surface leading-tight">Essential Ritual Set (4 Items)</h4>
-<p class="text-sm text-stone-400">Qty: 1</p>
-</div>
-<div class="text-right">
-<span class="font-bold text-on-surface-variant">$210.50</span>
-</div>
-</div>
-</div>
-<div class="p-6 md:p-8 bg-surface-container-low flex flex-col md:flex-row items-center justify-between gap-6">
-<div class="flex items-center gap-2 text-stone-500 text-sm">
-<span class="material-symbols-outlined text-stone-400">verified</span>
-<span>Delivered on <span class="font-bold">Oct 02, 2023</span></span>
-</div>
-<div class="flex gap-3 w-full md:w-auto">
-<button class="flex-1 md:flex-none px-6 py-3 rounded-full border border-stone-200 text-stone-600 font-bold text-sm hover:bg-stone-50 transition-colors">Return Items</button>
-<button class="flex-1 md:flex-none px-8 py-3 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-bold text-sm shadow-xl shadow-primary/10 hover:scale-95 transition-all">Reorder</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Skeleton State (Hidden Example) -->
-<div class="hidden flex flex-col gap-8 mt-20 animate-pulse">
-<div class="bg-surface-container-lowest rounded-xl h-64 border border-outline-variant/10"></div>
-<div class="bg-surface-container-lowest rounded-xl h-64 border border-outline-variant/10"></div>
-</div>
-<!-- Empty State (Hidden Example) -->
-<div class="hidden flex flex-col items-center justify-center py-32 text-center">
-<div class="w-24 h-24 bg-tertiary-fixed rounded-full flex items-center justify-center mb-6 text-tertiary">
-<span class="material-symbols-outlined text-4xl">shopping_cart_off</span>
-</div>
-<h2 class="text-2xl font-headline font-bold text-on-surface mb-2">Your journey hasn't started yet</h2>
-<p class="text-stone-500 max-w-sm mb-8">It seems you haven't placed any orders yet. Discover our curated botanical collections and start your ritual today.</p>
-<button class="px-10 py-4 rounded-full bg-gradient-to-r from-primary to-primary-container text-white font-bold text-lg shadow-xl shadow-primary/20">Start Shopping</button>
-</div>
-</main>
-<!-- Footer Component -->
-<footer class="w-full pt-20 pb-10 px-8 border-t border-stone-100 bg-[#f9f9f9] transition-opacity">
-<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-<div class="col-span-1 md:col-span-1">
-<div class="text-lg font-bold text-[#47664b] mb-4">Oravida</div>
-<p class="text-stone-500 text-sm leading-relaxed font-body">Cultivating beauty through the rhythm of nature. Our botanical formulations are crafted for the modern individual.</p>
-</div>
+<!-- Page Canvas -->
+<div class="p-8 space-y-8">
+<!-- Header Section -->
+<div class="flex items-center justify-between">
 <div>
-<h4 class="font-headline font-bold text-[#47664b] mb-4">Customer Service</h4>
-<ul class="space-y-3 font-body">
-<li><a class="text-stone-500 hover:text-[#bd949e] transition-colors" href="#">Shipping &amp; Returns</a></li>
-<li><a class="text-stone-500 hover:text-[#bd949e] transition-colors" href="#">Privacy Policy</a></li>
-<li><a class="text-stone-500 hover:text-[#bd949e] transition-colors" href="#">Terms of Service</a></li>
-</ul>
+<h2 class="font-h1 text-h1 text-primary">Categories Management</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage and organize your stationery product classifications.</p>
 </div>
-<div>
-<h4 class="font-headline font-bold text-[#47664b] mb-4">Company</h4>
-<ul class="space-y-3 font-body">
-<li><a class="text-stone-500 hover:text-[#bd949e] transition-colors" href="#">Our Story</a></li>
-<li><a class="text-stone-500 hover:text-[#bd949e] transition-colors" href="#">Editorial</a></li>
-<li><a class="text-stone-500 hover:text-[#bd949e] transition-colors" href="#">Contact Us</a></li>
-</ul>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                    Add Category
+                </button>
 </div>
+<!-- Bento-style Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="col-span-1 p-6 bg-surface-container-lowest rounded-xl shadow-sm border border-stone-100">
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Total Categories</p>
+<div class="flex items-end justify-between">
+<span class="text-display font-display text-primary">12</span>
+<span class="text-on-secondary-container bg-secondary-container px-2 py-0.5 rounded text-xs font-bold">+2 this mo</span>
+</div>
+</div>
+<div class="col-span-1 p-6 bg-surface-container-lowest rounded-xl shadow-sm border border-stone-100">
+<p class="text-label-sm font-label-sm text-outline mb-1 uppercase tracking-wider">Most Popular</p>
+<div class="flex items-end justify-between">
+<span class="text-h2 font-h2 text-primary">Pens</span>
+<span class="material-symbols-outlined text-secondary" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+<div class="col-span-2 p-6 bg-surface-container-lowest rounded-xl shadow-sm border border-stone-100 flex items-center justify-between">
+<div class="space-y-1">
+<p class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Quick Actions</p>
+<div class="flex gap-3">
+<button class="px-4 py-2 text-label-md font-label-md border border-outline rounded-lg hover:bg-stone-50">Bulk Export</button>
+<button class="px-4 py-2 text-label-md font-label-md border border-outline rounded-lg hover:bg-stone-50">Sort Priority</button>
+</div>
+</div>
+<div class="h-12 w-12 rounded-full bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+</div>
+</div>
+<!-- Category Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+<!-- Category Card: Pens -->
+<div class="bg-surface rounded-xl overflow-hidden shadow-sm border border-stone-100 group">
+<div class="h-40 bg-stone-200 overflow-hidden relative">
+<img alt="Luxury Pens" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="close-up of elegant fountain pens on a textured paper background with soft cinematic lighting and warm tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANdOyFjM4XSbK9AKECt3Ek8KK59IaovhgKftf8Bzt2ssNZ7oqcFnVf3dDqlwlnRabRZuHYUCA8Xo1vtnk3DASTK4snK5OBnKFKEJUxUjlyLqBvgsKiFhO6BNbOL9G_32nCoeNsVLsfE1II0kIWAD71H3cpHvZg-PVAVrIBVKDr11WDmIYJoZ7iHAuLwZzdXxqFGgjOLOw7o9gJXVRHVKHxIR3lPCvp00e6qVIAG-PWVdbCP4VjXkD97g9mMXoO1rwLbvPxrFhgJJU"/>
+<div class="absolute top-2 right-2 px-2 py-1 bg-white/90 backdrop-blur rounded text-[10px] font-bold uppercase text-primary">240 Items</div>
+</div>
+<div class="p-5 space-y-4">
 <div>
-<h4 class="font-headline font-bold text-[#47664b] mb-4">Newsletter</h4>
+<h3 class="font-h3 text-h3 text-primary">Pens</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Fountain, gel, and calligraphy tools.</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-stone-100">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-primary-fixed-dim"></div>
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-secondary-fixed-dim"></div>
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-tertiary-fixed-dim"></div>
+</div>
 <div class="flex gap-2">
-<input class="bg-white border-none rounded-full px-4 py-2 text-sm w-full focus:ring-2 focus:ring-[#47664b]/20" placeholder="Email address" type="email"/>
-<button class="bg-[#47664b] text-white p-2 rounded-full hover:scale-95 transition-transform">
-<span class="material-symbols-outlined">arrow_forward</span>
+<button class="p-1.5 hover:bg-stone-100 rounded text-stone-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded text-stone-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
 </button>
 </div>
 </div>
 </div>
-<div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="text-stone-400 text-xs font-medium">© 2024 Oravida Editorial. All rights reserved.</p>
-<div class="flex gap-6">
-<span class="material-symbols-outlined text-stone-400 cursor-pointer hover:text-primary transition-colors">share</span>
-<span class="material-symbols-outlined text-stone-400 cursor-pointer hover:text-primary transition-colors">mail</span>
 </div>
+<!-- Category Card: Notebooks -->
+<div class="bg-surface rounded-xl overflow-hidden shadow-sm border border-stone-100 group">
+<div class="h-40 bg-stone-200 overflow-hidden relative">
+<img alt="Notebooks" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="stack of minimalist high-quality linen notebooks in earthy colors on a clean wooden desk with morning sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_NHoh1CzvRT-q_jcl0_fktMh-ParCM_ax6rUdCPC1g9L3cpn8dR-ZP8bSgC0qnbekXJUS6PvgA1bDFmusfkMrTcMmV5do06Rx7h1LWbOr2SYJOeY3xdflBckDnMt96Kf6S15w2wSRwSV2ozb7q1gBmb_kRR68twAyoUtJT41QZVAKmlncuwb0qH3zu30KEuY1T63lvOvD0k0ZnPbxvYxIP8CaqdHrnvQt2eUrBtKHUCO-CbpgZce2IyfvnEI0f963cUiPqpbk6jo"/>
+<div class="absolute top-2 right-2 px-2 py-1 bg-white/90 backdrop-blur rounded text-[10px] font-bold uppercase text-primary">185 Items</div>
+</div>
+<div class="p-5 space-y-4">
+<div>
+<h3 class="font-h3 text-h3 text-primary">Notebooks</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Premium journals and sketchpads.</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-stone-100">
+<span class="text-label-sm font-label-sm text-on-secondary-fixed-variant">Active</span>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-stone-100 rounded text-stone-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded text-stone-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category Card: Alarm clocks -->
+<div class="bg-surface rounded-xl overflow-hidden shadow-sm border border-stone-100 group">
+<div class="h-40 bg-stone-200 overflow-hidden relative">
+<img alt="Alarm Clocks" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="vintage brass alarm clock on a stack of aged books with soft atmospheric lighting and heritage aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcOiAkY_hR-klgg6OwcVlV_GLRtWcgZGTTcTIBGbrgXFUv5wnU_RasHQs-MliIe6Cs-lA9jtvfE5CAthKdhQ1Ko8KgWRF0vZCfRkoW9pdVC2afJtwdBzWgOGGi75IJDWswMG8XVOw5jJxN_BlxoNHBSakZoBSAAZwjqdAb3RB7jDTZqeR8Sq-savzFY9XSCbWn4d-c-5Ix4RzBooMzT6us87PFlo2cQ1GhG2gEWwBmYfV5tVv-KrVRWmoU0GMVfXJdph71mS5Kpow"/>
+<div class="absolute top-2 right-2 px-2 py-1 bg-white/90 backdrop-blur rounded text-[10px] font-bold uppercase text-primary">42 Items</div>
+</div>
+<div class="p-5 space-y-4">
+<div>
+<h3 class="font-h3 text-h3 text-primary">Alarm clocks</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Analog and digital desk timepieces.</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-stone-100">
+<span class="text-label-sm font-label-sm text-on-secondary-fixed-variant">Limited Edition</span>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-stone-100 rounded text-stone-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded text-stone-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category Card: Stickers -->
+<div class="bg-surface rounded-xl overflow-hidden shadow-sm border border-stone-100 group">
+<div class="h-40 bg-stone-200 overflow-hidden relative">
+<img alt="Stickers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="colorful variety of artisan stickers and washi tapes arranged artistically on a white surface with bright airy lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuaxkbrj4GkfORQphnKzECwMTM0S6M7Gi_5r3kKb_VVMtHc62PPtDAbOzeYLH-TWGDiAAPdvprcEgkMNyHNr6gSNcXbUqOFIhPdIkIY_Az3KR1Pg7s6KpAImww8fLDeQcFFh_1yny_XAm7uhi8NQ1G0eiJiR_qo6jnbN_vA4WLIxyeS8aigMjdUhez-SY7guOjTLeOhjNuUcxnMYUhtueGHohU6g2lBzDM5Q8dXCKBzWL_tw2o2HMzutzdikNNJycG4xA1XVoq-GY"/>
+<div class="absolute top-2 right-2 px-2 py-1 bg-white/90 backdrop-blur rounded text-[10px] font-bold uppercase text-primary">312 Items</div>
+</div>
+<div class="p-5 space-y-4">
+<div>
+<h3 class="font-h3 text-h3 text-primary">Stickers</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Decorative elements and labels.</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-stone-100">
+<span class="text-label-sm font-label-sm text-on-secondary-fixed-variant">In Stock</span>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-stone-100 rounded text-stone-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded text-stone-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Category Card: Mugs -->
+<div class="bg-surface rounded-xl overflow-hidden shadow-sm border border-stone-100 group">
+<div class="h-40 bg-stone-200 overflow-hidden relative">
+<img alt="Mugs" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="hand-crafted ceramic mugs in muted tones on a stone coaster with steam rising against a neutral minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRkAvtfULB3ju_MggFwuASmOujlQkMcVMiJv4BNWx7crFcejv-BuLkYdFIG-bYI0mY8Z18vyRJ40bceBmxaOWsLuzJAcct8brsEtYblQQ-XtUGeCfyLt8I78-oBelkC1-HCD1YsTai0IyL2ORq00MVgFQcMpzvBR9dPd6x_IIGZ8TfB1OOM0gWoTw_sZwVjF9OgjLmFv-JotK8iJi7ErBNd215kl7j-GWwlXXyCN8CkExpotGB-gG6eNui-gIx-FYhj5Zyi5jpm3Q"/>
+<div class="absolute top-2 right-2 px-2 py-1 bg-white/90 backdrop-blur rounded text-[10px] font-bold uppercase text-primary">68 Items</div>
+</div>
+<div class="p-5 space-y-4">
+<div>
+<h3 class="font-h3 text-h3 text-primary">Mugs</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Artisanal ceramic drinkware.</p>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-stone-100">
+<span class="text-label-sm font-label-sm text-on-secondary-fixed-variant">Home Goods</span>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-stone-100 rounded text-stone-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 hover:bg-red-50 rounded text-stone-500 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Add New Placeholder Card -->
+<button class="border-2 border-dashed border-stone-200 rounded-xl flex flex-col items-center justify-center p-8 text-stone-400 hover:border-primary hover:text-primary transition-all group">
+<div class="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center mb-4 group-hover:bg-primary-fixed">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</div>
+<span class="font-label-md text-label-md">Create New Collection</span>
+</button>
+</div>
+<!-- Detailed Management Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-stone-100 overflow-hidden">
+<div class="px-8 py-6 border-b border-stone-100 flex items-center justify-between">
+<h3 class="font-h2 text-h2 text-primary">Overview List</h3>
+<div class="flex gap-2">
+<button class="p-2 border border-outline rounded-lg text-primary hover:bg-stone-50">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-right">
+<thead>
+<tr class="bg-stone-50">
+<th class="px-8 py-4 font-label-md text-label-md text-primary">Category Name</th>
+<th class="px-8 py-4 font-label-md text-label-md text-primary">SKUs</th>
+<th class="px-8 py-4 font-label-md text-label-md text-primary">Stock Level</th>
+<th class="px-8 py-4 font-label-md text-label-md text-primary">Sales (MTD)</th>
+<th class="px-8 py-4 font-label-md text-label-md text-primary">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-100">
+<tr class="hover:bg-stone-50/50 transition-colors">
+<td class="px-8 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-stone-200 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="edit_note">edit_note</span>
+</div>
+<span class="font-label-md text-label-md">Pens</span>
+</div>
+</td>
+<td class="px-8 py-4 text-on-surface-variant font-body-sm">45 unique designs</td>
+<td class="px-8 py-4">
+<span class="px-2 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full">Healthy</span>
+</td>
+<td class="px-8 py-4 font-label-md text-label-md">SAR 12,450</td>
+<td class="px-8 py-4">
+<div class="flex gap-4">
+<button class="text-primary hover:underline text-xs font-bold">Manage Items</button>
+<button class="text-error hover:underline text-xs font-bold">Archive</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-stone-50/50 transition-colors">
+<td class="px-8 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-stone-200 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="book">book</span>
+</div>
+<span class="font-label-md text-label-md">Notebooks</span>
+</div>
+</td>
+<td class="px-8 py-4 text-on-surface-variant font-body-sm">32 variants</td>
+<td class="px-8 py-4">
+<span class="px-2 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full">Restock Soon</span>
+</td>
+<td class="px-8 py-4 font-label-md text-label-md">SAR 8,920</td>
+<td class="px-8 py-4">
+<div class="flex gap-4">
+<button class="text-primary hover:underline text-xs font-bold">Manage Items</button>
+<button class="text-error hover:underline text-xs font-bold">Archive</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Footer / Feedback -->
+<footer class="mt-auto px-8 py-6 flex items-center justify-between border-t border-stone-200 text-outline">
+<p class="text-label-sm font-label-sm">© 2024 اندلسيه Stationery Boutique - Admin Portal</p>
+<div class="flex gap-6">
+<a class="text-label-sm font-label-sm hover:text-primary" href="#">Help Center</a>
+<a class="text-label-sm font-label-sm hover:text-primary" href="#">System Status</a>
 </div>
 </footer>
+</main>
 </body></html>

@@ -1,6 +1,6 @@
 @extends('front.app')
 @section('content')
-<main class="pt-32 px-6 max-w-7xl mx-auto">
+<main class="pt-16 px-6 max-w-7xl mx-auto">
 <!-- Search & Filter Layout -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
 <!-- Sidebar Filters -->
@@ -93,7 +93,7 @@
 
         @if($image)
             <a href="{{ route('front.products.show', $product->id) }}">
-                <img src="{{ asset('storage/products/' . $image->path) }}"
+                <img src="{{ asset('storage/' . $product->images->first()?->path) }}"
                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
             </a>
         @endif
